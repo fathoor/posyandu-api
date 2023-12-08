@@ -9,3 +9,6 @@ storage/*
 
 # GoLand
 .idea/
+
+# Seed
+core/database/seed/*
