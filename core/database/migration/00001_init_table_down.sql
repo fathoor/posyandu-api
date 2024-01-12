@@ -7,14 +7,14 @@ DROP TABLE IF EXISTS jadwal_penyuluhan;
 -- Jadwal Posyandu
 DROP TABLE IF EXISTS jadwal_posyandu;
 
--- Kader
-DROP TABLE IF EXISTS kader;
-
--- Remaja
-DROP TABLE IF EXISTS remaja;
+-- Pengampu Posyandu
+DROP TABLE IF EXISTS pengampu_posyandu;
 
 -- Posyandu
 DROP TABLE IF EXISTS posyandu;
+
+-- Remaja
+DROP TABLE IF EXISTS remaja;
 
 -- Bidan
 DROP TABLE IF EXISTS bidan;

@@ -1,3 +1,6 @@
+-- Set Timezone
+SET GLOBAL time_zone = '+7:00';
+
 -- Users
 CREATE TABLE users (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -17,6 +20,7 @@ CREATE TABLE users (
     rt INT NOT NULL,
     rw INT NOT NULL,
     telepon VARCHAR(255) NOT NULL,
+    foto VARCHAR(255) NOT NULL DEFAULT '/storage/image/default.png',
     role ENUM('admin', 'bidan', 'kader', 'remaja') NOT NULL,
     reset_token VARCHAR(255),
     reset_expire TIMESTAMP,
@@ -34,10 +38,21 @@ CREATE TABLE bidan (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
+-- Remaja
+CREATE TABLE remaja (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    nama_ayah VARCHAR(255) NOT NULL,
+    nama_ibu VARCHAR(255) NOT NULL,
+    is_kader BOOL DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE = InnoDB;
+
 -- Posyandu
 CREATE TABLE posyandu (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    bidan_id INT NOT NULL,
     nama VARCHAR(255) NOT NULL,
     alamat VARCHAR(255) NOT NULL,
     provinsi VARCHAR(255) NOT NULL,
@@ -47,39 +62,28 @@ CREATE TABLE posyandu (
     kode_pos INT NOT NULL,
     rt INT NOT NULL,
     rw INT NOT NULL,
+    foto VARCHAR(255) NOT NULL DEFAULT '/storage/image/default.png',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (bidan_id) REFERENCES bidan(id) ON DELETE CASCADE
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE = InnoDB;
 
--- Remaja
-CREATE TABLE remaja (
+-- Pengampu Posyandu
+CREATE TABLE pengampu_posyandu (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
+    bidan_id INT NOT NULL,
     posyandu_id INT NOT NULL,
-    nama_ayah VARCHAR(255) NOT NULL,
-    nama_ibu VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (bidan_id) REFERENCES bidan(id) ON DELETE CASCADE,
     FOREIGN KEY (posyandu_id) REFERENCES posyandu(id) ON DELETE CASCADE
-) ENGINE = InnoDB;
-
--- Kader
-CREATE TABLE kader (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 -- Jadwal Posyandu
 CREATE TABLE jadwal_posyandu (
     id INT PRIMARY KEY AUTO_INCREMENT,
     posyandu_id INT NOT NULL,
-    waktu_mulai DATE NOT NULL,
-    waktu_selesai DATE NOT NULL,
+    waktu_mulai DATETIME NOT NULL,
+    waktu_selesai DATETIME NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (posyandu_id) REFERENCES posyandu(id) ON DELETE CASCADE
@@ -89,9 +93,11 @@ CREATE TABLE jadwal_posyandu (
 CREATE TABLE jadwal_penyuluhan (
     id INT PRIMARY KEY AUTO_INCREMENT,
     posyandu_id INT NOT NULL,
-    waktu_mulai DATE NOT NULL,
-    waktu_selesai DATE NOT NULL,
+    waktu_mulai DATETIME NOT NULL,
+    waktu_selesai DATETIME NOT NULL,
+    title VARCHAR(255) NOT NULL,
     materi TEXT,
+    feedback TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (posyandu_id) REFERENCES posyandu(id) ON DELETE CASCADE
@@ -100,7 +106,6 @@ CREATE TABLE jadwal_penyuluhan (
 -- Pemeriksaan
 CREATE TABLE pemeriksaan (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    bidan_id INT NOT NULL,
     remaja_id INT NOT NULL,
     berat_badan FLOAT,
     tinggi_badan FLOAT,
@@ -109,11 +114,10 @@ CREATE TABLE pemeriksaan (
     tingkat_glukosa FLOAT,
     kadar_hemoglobin FLOAT,
     pemberian_fe BOOL NOT NULL,
-    waktu_pengukuran DATE NOT NULL,
+    waktu_pengukuran DATETIME NOT NULL,
     kondisi_umum ENUM('baik', 'cukup', 'lemah') NOT NULL,
     keterangan TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (bidan_id) REFERENCES bidan(id) ON DELETE CASCADE,
     FOREIGN KEY (remaja_id) REFERENCES remaja(id) ON DELETE CASCADE
 ) ENGINE = InnoDB;
