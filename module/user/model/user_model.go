@@ -9,7 +9,7 @@ type LoginRequest struct {
 
 type LoginResponse struct {
 	Token     string `json:"token"`
-	Type      string `json:"type"`
+	Role      string `json:"role"`
 	ExpiresAt string `json:"expires_at"`
 }
 
@@ -30,6 +30,7 @@ type UserRegisterRequest struct {
 	RT           int       `json:"rt" validate:"required"`
 	RW           int       `json:"rw" validate:"required"`
 	Telepon      string    `json:"telepon" validate:"required"`
+	Foto         string    `json:"foto"`
 	Role         string    `json:"role" validate:"required"`
 }
 
@@ -46,6 +47,7 @@ type UserUpdateRequest struct {
 	RT        int    `json:"rt" validate:"required"`
 	RW        int    `json:"rw" validate:"required"`
 	Telepon   string `json:"telepon" validate:"required"`
+	Foto      string `json:"foto"`
 }
 
 type UserResponse struct {
@@ -64,5 +66,6 @@ type UserResponse struct {
 	RT           int    `json:"rt"`
 	RW           int    `json:"rw"`
 	Telepon      string `json:"telepon"`
+	Foto         string `json:"foto"`
 	Role         string `json:"role"`
 }
