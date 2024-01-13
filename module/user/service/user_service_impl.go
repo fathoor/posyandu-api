@@ -137,7 +137,11 @@ func (service *userServiceImpl) GetAll() ([]model.UserResponse, error) {
 
 func (service *userServiceImpl) GetByRole(role string) ([]model.UserResponse, error) {
 	user, err := service.UserRepository.FindByRole(role)
-	exception.PanicIfNeeded(err)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: "User not found",
+		})
+	}
 
 	response := make([]model.UserResponse, len(user))
 	for i, user := range user {
@@ -205,7 +209,11 @@ func (service *userServiceImpl) Update(id int, request *model.UserUpdateRequest)
 	}
 
 	user, err := service.UserRepository.FindByID(id)
-	exception.PanicIfNeeded(err)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: "User not found",
+		})
+	}
 
 	if user != (entity.User{}) {
 		user.Nama = request.Nama
@@ -224,6 +232,7 @@ func (service *userServiceImpl) Update(id int, request *model.UserUpdateRequest)
 	}
 
 	err = service.UserRepository.Save(&user)
+	exception.PanicIfNeeded(err)
 
 	response := model.UserResponse{
 		Nama:         user.Nama,
@@ -250,7 +259,11 @@ func (service *userServiceImpl) Update(id int, request *model.UserUpdateRequest)
 
 func (service *userServiceImpl) Delete(id int) error {
 	user, err := service.UserRepository.FindByID(id)
-	exception.PanicIfNeeded(err)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: "User not found",
+		})
+	}
 
 	return service.UserRepository.Delete(&user)
 }

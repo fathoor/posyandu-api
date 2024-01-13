@@ -92,7 +92,11 @@ func (controller *userControllerImpl) GetByRole(ctx *fiber.Ctx) error {
 
 func (controller *userControllerImpl) GetByID(ctx *fiber.Ctx) error {
 	id, err := ctx.ParamsInt("id")
-	exception.PanicIfNeeded(err)
+	if err != nil {
+		panic(exception.BadRequestError{
+			Message: "Invalid parameter",
+		})
+	}
 
 	response, err := controller.UserService.GetByID(id)
 	exception.PanicIfNeeded(err)
@@ -111,7 +115,11 @@ func (controller *userControllerImpl) Update(ctx *fiber.Ctx) error {
 	exception.PanicIfNeeded(err)
 
 	id, err := ctx.ParamsInt("id")
-	exception.PanicIfNeeded(err)
+	if err != nil {
+		panic(exception.BadRequestError{
+			Message: "Invalid parameter",
+		})
+	}
 
 	response, err := controller.UserService.Update(id, &request)
 	exception.PanicIfNeeded(err)
@@ -125,7 +133,11 @@ func (controller *userControllerImpl) Update(ctx *fiber.Ctx) error {
 
 func (controller *userControllerImpl) Delete(ctx *fiber.Ctx) error {
 	id, err := ctx.ParamsInt("id")
-	exception.PanicIfNeeded(err)
+	if err != nil {
+		panic(exception.BadRequestError{
+			Message: "Invalid parameter",
+		})
+	}
 
 	err = controller.UserService.Delete(id)
 	exception.PanicIfNeeded(err)
