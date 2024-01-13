@@ -8,6 +8,9 @@ import (
 	posyanduController "github.com/itsLeonB/posyandu-api/module/posyandu/controller"
 	posyanduRepository "github.com/itsLeonB/posyandu-api/module/posyandu/repository"
 	posyanduService "github.com/itsLeonB/posyandu-api/module/posyandu/service"
+	remajaController "github.com/itsLeonB/posyandu-api/module/remaja/controller"
+	remajaRepository "github.com/itsLeonB/posyandu-api/module/remaja/repository"
+	remajaService "github.com/itsLeonB/posyandu-api/module/remaja/service"
 	userController "github.com/itsLeonB/posyandu-api/module/user/controller"
 	userRepository "github.com/itsLeonB/posyandu-api/module/user/repository"
 	userService "github.com/itsLeonB/posyandu-api/module/user/service"
@@ -18,6 +21,7 @@ func ProvideModule(app *fiber.App, db *gorm.DB) {
 	ProvideUser(app, db)
 	ProvideBidan(app, db)
 	ProvidePosyandu(app, db)
+	ProvideRemaja(app, db)
 }
 
 func ProvideUser(app *fiber.App, db *gorm.DB) {
@@ -41,6 +45,16 @@ func ProvidePosyandu(app *fiber.App, db *gorm.DB) {
 	repository := posyanduRepository.ProvidePosyanduRepository(db)
 	service := posyanduService.ProvidePosyanduService(&repository)
 	controller := posyanduController.ProvidePosyanduController(&service)
+
+	controller.Route(app)
+}
+
+func ProvideRemaja(app *fiber.App, db *gorm.DB) {
+	remajaRepo := remajaRepository.ProvideRemajaRepository(db)
+	posyanduRepo := posyanduRepository.ProvidePosyanduRepository(db)
+	userRepo := userRepository.ProvideUserRepository(db)
+	service := remajaService.ProvideRemajaService(&remajaRepo, &posyanduRepo, &userRepo)
+	controller := remajaController.ProvideRemajaController(&service)
 
 	controller.Route(app)
 }
