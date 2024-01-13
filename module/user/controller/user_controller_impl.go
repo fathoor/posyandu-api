@@ -25,7 +25,7 @@ func (controller *userControllerImpl) Route(app *fiber.App) {
 	bidan.Delete("/:id", controller.Delete)
 
 	public := app.Group("/api/user", middleware.Authenticate("public"))
-	public.Get("/:role", controller.GetByRole)
+	public.Get("/role/:role", controller.GetByRole)
 	public.Get("/:id", controller.GetByID)
 }
 
