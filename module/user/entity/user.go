@@ -20,6 +20,7 @@ type User struct {
 	RT           int       `gorm:"column:rt;not null"`
 	RW           int       `gorm:"column:rw;not null"`
 	Telepon      string    `gorm:"column:telepon;not null"`
+	Foto         string    `gorm:"column:foto;not null;default:'/storage/image/default.png'"`
 	Role         string    `gorm:"column:role;not null"`
 	CreatedAt    time.Time `gorm:"column:created_at;autoCreateTime"`
 	UpdatedAt    time.Time `gorm:"column:updated_at;autoCreateTime;autoUpdateTime"`
