@@ -19,7 +19,8 @@ func ProvideDB(cfg Config) *gorm.DB {
 	dialect := mysql.Open(dsn)
 
 	db, err := gorm.Open(dialect, &gorm.Config{
-		Logger: logger.Default.LogMode(logger.Info),
+		Logger:         logger.Default.LogMode(logger.Info),
+		TranslateError: true,
 	})
 	exception.PanicIfNeeded(err)
 

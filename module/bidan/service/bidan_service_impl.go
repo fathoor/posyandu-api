@@ -60,7 +60,11 @@ func (service *bidanServiceImpl) GetAll() ([]model.BidanResponse, error) {
 	response := make([]model.BidanResponse, len(bidan))
 	for i, bidan := range bidan {
 		user, err := service.userRepo.FindByID(bidan.UserID)
-		exception.PanicIfNeeded(err)
+		if err != nil {
+			panic(exception.NotFoundError{
+				Message: "User not found",
+			})
+		}
 
 		response[i] = model.BidanResponse{
 			ID: bidan.ID,

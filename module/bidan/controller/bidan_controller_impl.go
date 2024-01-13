@@ -51,7 +51,11 @@ func (controller *bidanControllerImpl) GetAll(ctx *fiber.Ctx) error {
 
 func (controller *bidanControllerImpl) GetByID(ctx *fiber.Ctx) error {
 	id, err := ctx.ParamsInt("id")
-	exception.PanicIfNeeded(err)
+	if err != nil {
+		panic(exception.BadRequestError{
+			Message: "Invalid parameter",
+		})
+	}
 
 	response, err := controller.BidanService.GetByID(id)
 	exception.PanicIfNeeded(err)
@@ -67,7 +71,11 @@ func (controller *bidanControllerImpl) Update(ctx *fiber.Ctx) error {
 	var request model.BidanUpdateRequest
 
 	id, err := ctx.ParamsInt("id")
-	exception.PanicIfNeeded(err)
+	if err != nil {
+		panic(exception.BadRequestError{
+			Message: "Invalid parameter",
+		})
+	}
 
 	err = ctx.BodyParser(&request)
 	exception.PanicIfNeeded(err)
@@ -84,7 +92,11 @@ func (controller *bidanControllerImpl) Update(ctx *fiber.Ctx) error {
 
 func (controller *bidanControllerImpl) Delete(ctx *fiber.Ctx) error {
 	id, err := ctx.ParamsInt("id")
-	exception.PanicIfNeeded(err)
+	if err != nil {
+		panic(exception.BadRequestError{
+			Message: "Invalid parameter",
+		})
+	}
 
 	err = controller.BidanService.Delete(id)
 	exception.PanicIfNeeded(err)
