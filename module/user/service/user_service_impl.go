@@ -40,7 +40,7 @@ func (service *userServiceImpl) Login(request *model.LoginRequest) (model.LoginR
 
 	response := model.LoginResponse{
 		Token:     token,
-		Type:      "Bearer",
+		Role:      user.Role,
 		ExpiresAt: time.Now().Add(time.Hour * 24).Format("2006-01-02 15:04:05"),
 	}
 
@@ -75,6 +75,7 @@ func (service *userServiceImpl) Register(request *model.UserRegisterRequest) (mo
 		RT:           request.RT,
 		RW:           request.RW,
 		Telepon:      request.Telepon,
+		Foto:         request.Foto,
 		Role:         request.Role,
 	}
 
@@ -97,6 +98,7 @@ func (service *userServiceImpl) Register(request *model.UserRegisterRequest) (mo
 		RT:           user.RT,
 		RW:           user.RW,
 		Telepon:      user.Telepon,
+		Foto:         user.Foto,
 		Role:         user.Role,
 	}
 
@@ -125,11 +127,12 @@ func (service *userServiceImpl) GetAll() ([]model.UserResponse, error) {
 			RT:           user.RT,
 			RW:           user.RW,
 			Telepon:      user.Telepon,
+			Foto:         user.Foto,
 			Role:         user.Role,
 		}
 	}
 
-	return response, err
+	return response, nil
 }
 
 func (service *userServiceImpl) GetByRole(role string) ([]model.UserResponse, error) {
@@ -154,11 +157,12 @@ func (service *userServiceImpl) GetByRole(role string) ([]model.UserResponse, er
 			RT:           user.RT,
 			RW:           user.RW,
 			Telepon:      user.Telepon,
+			Foto:         user.Foto,
 			Role:         user.Role,
 		}
 	}
 
-	return response, err
+	return response, nil
 }
 
 func (service *userServiceImpl) GetByID(id int) (model.UserResponse, error) {
@@ -185,10 +189,11 @@ func (service *userServiceImpl) GetByID(id int) (model.UserResponse, error) {
 		RT:           user.RT,
 		RW:           user.RW,
 		Telepon:      user.Telepon,
+		Foto:         user.Foto,
 		Role:         user.Role,
 	}
 
-	return response, err
+	return response, nil
 }
 
 func (service *userServiceImpl) Update(id int, request *model.UserUpdateRequest) (model.UserResponse, error) {
@@ -215,6 +220,7 @@ func (service *userServiceImpl) Update(id int, request *model.UserUpdateRequest)
 		user.RT = request.RT
 		user.RW = request.RW
 		user.Telepon = request.Telepon
+		user.Foto = request.Foto
 	}
 
 	err = service.UserRepository.Save(&user)
@@ -235,10 +241,11 @@ func (service *userServiceImpl) Update(id int, request *model.UserUpdateRequest)
 		RT:           user.RT,
 		RW:           user.RW,
 		Telepon:      user.Telepon,
+		Foto:         user.Foto,
 		Role:         user.Role,
 	}
 
-	return response, err
+	return response, nil
 }
 
 func (service *userServiceImpl) Delete(id int) error {
