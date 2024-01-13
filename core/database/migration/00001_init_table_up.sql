@@ -31,7 +31,7 @@ CREATE TABLE users (
 -- Bidan
 CREATE TABLE bidan (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
+    user_id INT NOT NULL UNIQUE,
     jabatan ENUM('terampil', 'mahir', 'penyelia') NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -41,7 +41,7 @@ CREATE TABLE bidan (
 -- Remaja
 CREATE TABLE remaja (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
+    user_id INT NOT NULL UNIQUE,
     nama_ayah VARCHAR(255) NOT NULL,
     nama_ibu VARCHAR(255) NOT NULL,
     is_kader BOOL DEFAULT FALSE,
