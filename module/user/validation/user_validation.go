@@ -16,3 +16,7 @@ func ValidateUserRegisterRequest(request *model.UserRegisterRequest) error {
 func ValidateUserUpdateRequest(request *model.UserUpdateRequest) error {
 	return validator.New().Struct(request)
 }
+
+func ValidateUserUpdateAuthRequest(request *model.UserUpdateAuthRequest) error {
+	return validator.New().Struct(request)
+}
