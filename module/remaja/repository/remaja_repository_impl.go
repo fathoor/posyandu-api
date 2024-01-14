@@ -27,6 +27,13 @@ func (repository *remajaRepositoryImpl) FindByID(id int) (entity.Remaja, error) 
 	return remaja, err
 }
 
+func (repository *remajaRepositoryImpl) FindByUserID(id int) (entity.Remaja, error) {
+	var remaja entity.Remaja
+	err := repository.DB.Take(&remaja, "user_id = ?", id).Error
+
+	return remaja, err
+}
+
 func (repository *remajaRepositoryImpl) Save(remaja *entity.Remaja) error {
 	return repository.DB.Save(&remaja).Error
 }
