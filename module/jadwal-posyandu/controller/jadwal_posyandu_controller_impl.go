@@ -14,12 +14,12 @@ type jadwalPosyanduControllerImpl struct {
 }
 
 func (controller *jadwalPosyanduControllerImpl) Route(app *fiber.App) {
-	jadwalPosyandu := app.Group("/api/jadwal-posyandu", middleware.Authenticate("bidan"))
-	jadwalPosyandu.Post("/", controller.Create)
+	jadwalPosyandu := app.Group("/api/jadwal-posyandu", middleware.Authenticate("public"))
+	jadwalPosyandu.Post("/", middleware.Authenticate("bidan"), controller.Create)
 	jadwalPosyandu.Get("/", controller.GetAll)
 	jadwalPosyandu.Get("/:id", controller.GetByID)
-	jadwalPosyandu.Put("/:id", controller.Update)
-	jadwalPosyandu.Delete("/:id", controller.Delete)
+	jadwalPosyandu.Put("/:id", middleware.Authenticate("bidan"), controller.Update)
+	jadwalPosyandu.Delete("/:id", middleware.Authenticate("bidan"), controller.Delete)
 }
 
 func (controller *jadwalPosyanduControllerImpl) Create(ctx *fiber.Ctx) error {
