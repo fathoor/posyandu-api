@@ -5,6 +5,8 @@ import (
 	bidanController "github.com/itsLeonB/posyandu-api/module/bidan/controller"
 	bidanRepository "github.com/itsLeonB/posyandu-api/module/bidan/repository"
 	bidanService "github.com/itsLeonB/posyandu-api/module/bidan/service"
+	fileController "github.com/itsLeonB/posyandu-api/module/file/controller"
+	fileService "github.com/itsLeonB/posyandu-api/module/file/service"
 	jadwalPenyuluhanController "github.com/itsLeonB/posyandu-api/module/jadwal-penyuluhan/controller"
 	jadwalPenyuluhanRepository "github.com/itsLeonB/posyandu-api/module/jadwal-penyuluhan/repository"
 	jadwalPenyuluhanService "github.com/itsLeonB/posyandu-api/module/jadwal-penyuluhan/service"
@@ -38,6 +40,7 @@ func ProvideModule(app *fiber.App, db *gorm.DB) {
 	ProvideJadwalPosyandu(app, db)
 	ProvideJadwalPenyuluhan(app, db)
 	ProvidePemeriksaan(app, db)
+	ProvideFile(app)
 }
 
 func ProvideUser(app *fiber.App, db *gorm.DB) {
@@ -111,6 +114,13 @@ func ProvidePemeriksaan(app *fiber.App, db *gorm.DB) {
 	userRepo := userRepository.ProvideUserRepository(db)
 	service := pemeriksaanService.ProvidePemeriksaanService(&pemeriksaanRepo, &posyanduRepo, &remajaRepo, &userRepo)
 	controller := pemeriksaanController.ProvidePemeriksaanController(&service)
+
+	controller.Route(app)
+}
+
+func ProvideFile(app *fiber.App) {
+	service := fileService.ProvideFileService()
+	controller := fileController.ProvideFileController(&service)
 
 	controller.Route(app)
 }
