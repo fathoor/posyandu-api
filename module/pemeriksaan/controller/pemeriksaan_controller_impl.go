@@ -14,12 +14,13 @@ type pemeriksaanControllerImpl struct {
 }
 
 func (controller *pemeriksaanControllerImpl) Route(app *fiber.App) {
-	pemeriksaan := app.Group("/api/pemeriksaan", middleware.Authenticate("bidan"))
-	pemeriksaan.Post("/", controller.Create)
-	pemeriksaan.Get("/", controller.GetAll)
+	pemeriksaan := app.Group("/api/pemeriksaan", middleware.Authenticate("public"))
+	pemeriksaan.Post("/", middleware.Authenticate("bidan"), controller.Create)
+	pemeriksaan.Get("/", middleware.Authenticate("bidan"), controller.GetAll)
+	pemeriksaan.Get("/remaja/:id", middleware.AuthorizeUser(), controller.GetAllByRemajaID)
 	pemeriksaan.Get("/:id", controller.GetByID)
-	pemeriksaan.Put("/:id", controller.Update)
-	pemeriksaan.Delete("/:id", controller.Delete)
+	pemeriksaan.Put("/:id", middleware.Authenticate("bidan"), controller.Update)
+	pemeriksaan.Delete("/:id", middleware.Authenticate("bidan"), controller.Delete)
 }
 
 func (controller *pemeriksaanControllerImpl) Create(ctx *fiber.Ctx) error {
@@ -40,6 +41,24 @@ func (controller *pemeriksaanControllerImpl) Create(ctx *fiber.Ctx) error {
 
 func (controller *pemeriksaanControllerImpl) GetAll(ctx *fiber.Ctx) error {
 	response, err := controller.PemeriksaanService.GetAll()
+	exception.PanicIfNeeded(err)
+
+	return ctx.Status(fiber.StatusOK).JSON(web.Response{
+		Code:   fiber.StatusOK,
+		Status: "OK",
+		Data:   response,
+	})
+}
+
+func (controller *pemeriksaanControllerImpl) GetAllByRemajaID(ctx *fiber.Ctx) error {
+	id, err := ctx.ParamsInt("id")
+	if err != nil {
+		panic(exception.BadRequestError{
+			Message: "Invalid parameter",
+		})
+	}
+
+	response, err := controller.PemeriksaanService.GetAllByRemajaID(id)
 	exception.PanicIfNeeded(err)
 
 	return ctx.Status(fiber.StatusOK).JSON(web.Response{
