@@ -161,6 +161,76 @@ func (service *pemeriksaanServiceImpl) GetAll() ([]model.PemeriksaanResponse, er
 	return response, nil
 }
 
+func (service *pemeriksaanServiceImpl) GetAllByRemajaID(id int) ([]model.PemeriksaanResponse, error) {
+	remaja, err := service.remajaRepo.FindByUserID(id)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: "Remaja not found",
+		})
+	}
+
+	pemeriksaan, err := service.pemeriksaanRepo.FindAllByRemajaID(remaja.ID)
+	exception.PanicIfNeeded(err)
+
+	response := make([]model.PemeriksaanResponse, len(pemeriksaan))
+	for i, pemeriksaan := range pemeriksaan {
+		remaja, err := service.remajaRepo.FindByID(pemeriksaan.RemajaID)
+		if err != nil {
+			panic(exception.NotFoundError{
+				Message: "Remaja not found",
+			})
+		}
+
+		posyandu, err := service.posyanduRepo.FindByID(remaja.PosyanduID)
+		if err != nil {
+			panic(exception.NotFoundError{
+				Message: "Posyandu not found",
+			})
+		}
+
+		user, err := service.userRepo.FindByID(remaja.UserID)
+		if err != nil {
+			panic(exception.NotFoundError{
+				Message: "User not found",
+			})
+		}
+
+		response[i] = model.PemeriksaanResponse{
+			ID: pemeriksaan.ID,
+			Remaja: model.PemeriksaanRemajaResponse{
+				ID: remaja.ID,
+				Posyandu: model.PemeriksaanRemajaPosyanduResponse{
+					ID:     posyandu.ID,
+					Nama:   posyandu.Nama,
+					Alamat: posyandu.Alamat,
+					Foto:   posyandu.Foto,
+				},
+				User: model.PemeriksaanRemajaUserResponse{
+					ID:           user.ID,
+					Nama:         user.Nama,
+					NIK:          user.NIK,
+					TanggalLahir: user.TanggalLahir.Format("2006-01-02"),
+					Foto:         user.Foto,
+					Role:         user.Role,
+				},
+				NamaAyah: remaja.NamaAyah,
+				NamaIbu:  remaja.NamaIbu,
+				IsKader:  remaja.IsKader,
+			},
+			BeratBadan:      pemeriksaan.BeratBadan,
+			TinggiBadan:     pemeriksaan.TinggiBadan,
+			LingkarLengan:   pemeriksaan.LingkarLengan,
+			TingkatGlukosa:  pemeriksaan.TingkatGlukosa,
+			KadarHemoglobin: pemeriksaan.KadarHemoglobin,
+			PemberianFe:     pemeriksaan.PemberianFe,
+			WaktuPengukuran: pemeriksaan.WaktuPengukuran.Format("2006-01-02 15:04:05"),
+			KondisiUmum:     pemeriksaan.KondisiUmum,
+		}
+	}
+
+	return response, nil
+}
+
 func (service *pemeriksaanServiceImpl) GetByID(id int) (model.PemeriksaanResponse, error) {
 	pemeriksaan, err := service.pemeriksaanRepo.FindByID(id)
 	if err != nil {
