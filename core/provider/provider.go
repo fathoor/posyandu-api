@@ -5,6 +5,9 @@ import (
 	bidanController "github.com/itsLeonB/posyandu-api/module/bidan/controller"
 	bidanRepository "github.com/itsLeonB/posyandu-api/module/bidan/repository"
 	bidanService "github.com/itsLeonB/posyandu-api/module/bidan/service"
+	jadwalPenyuluhanController "github.com/itsLeonB/posyandu-api/module/jadwal-penyuluhan/controller"
+	jadwalPenyuluhanRepository "github.com/itsLeonB/posyandu-api/module/jadwal-penyuluhan/repository"
+	jadwalPenyuluhanService "github.com/itsLeonB/posyandu-api/module/jadwal-penyuluhan/service"
 	jadwalPosyanduController "github.com/itsLeonB/posyandu-api/module/jadwal-posyandu/controller"
 	jadwalPosyanduRepository "github.com/itsLeonB/posyandu-api/module/jadwal-posyandu/repository"
 	jadwalPosyanduService "github.com/itsLeonB/posyandu-api/module/jadwal-posyandu/service"
@@ -30,6 +33,7 @@ func ProvideModule(app *fiber.App, db *gorm.DB) {
 	ProvideRemaja(app, db)
 	ProvidePengampu(app, db)
 	ProvideJadwalPosyandu(app, db)
+	ProvideJadwalPenyuluhan(app, db)
 }
 
 func ProvideUser(app *fiber.App, db *gorm.DB) {
@@ -83,6 +87,15 @@ func ProvideJadwalPosyandu(app *fiber.App, db *gorm.DB) {
 	posyanduRepo := posyanduRepository.ProvidePosyanduRepository(db)
 	service := jadwalPosyanduService.ProvideJadwalPosyanduService(&jadwalPosyanduRepo, &posyanduRepo)
 	controller := jadwalPosyanduController.ProvideJadwalPosyanduController(&service)
+
+	controller.Route(app)
+}
+
+func ProvideJadwalPenyuluhan(app *fiber.App, db *gorm.DB) {
+	jadwalPenyuluhanRepo := jadwalPenyuluhanRepository.ProvideJadwalPenyuluhanRepository(db)
+	posyanduRepo := posyanduRepository.ProvidePosyanduRepository(db)
+	service := jadwalPenyuluhanService.ProvideJadwalPenyuluhanService(&jadwalPenyuluhanRepo, &posyanduRepo)
+	controller := jadwalPenyuluhanController.ProvideJadwalPenyuluhanController(&service)
 
 	controller.Route(app)
 }
