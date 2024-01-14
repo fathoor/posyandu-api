@@ -27,6 +27,13 @@ func (repository *bidanRepositoryImpl) FindByID(id int) (entity.Bidan, error) {
 	return bidan, err
 }
 
+func (repository *bidanRepositoryImpl) FindByUserID(userID int) (entity.Bidan, error) {
+	var bidan entity.Bidan
+	err := repository.DB.Take(&bidan, "user_id = ?", userID).Error
+
+	return bidan, err
+}
+
 func (repository *bidanRepositoryImpl) Save(bidan *entity.Bidan) error {
 	return repository.DB.Save(&bidan).Error
 }
