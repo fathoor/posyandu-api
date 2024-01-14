@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func GenerateJWT(username string, role string) (string, error) {
+func GenerateJWT(id int, role string) (string, error) {
 	var (
 		cfg       = config.ProvideConfig()
 		exp       = cfg.GetInt("JWT_EXPIRE")
@@ -15,9 +15,9 @@ func GenerateJWT(username string, role string) (string, error) {
 	)
 
 	claims := jwt.MapClaims{
-		"username": username,
-		"role":     role,
-		"exp":      jwtExpire.Unix(),
+		"id":   id,
+		"role": role,
+		"exp":  jwtExpire.Unix(),
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
