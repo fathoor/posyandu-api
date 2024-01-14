@@ -18,15 +18,17 @@ func (controller *userControllerImpl) Route(app *fiber.App) {
 	auth.Post("/login", controller.Login)
 	auth.Post("/forget-password", controller.ForgetPassword)
 
-	bidan := app.Group("/api/user", middleware.Authenticate("bidan"))
-	bidan.Post("/register", controller.Register)
-	bidan.Get("/", controller.GetAll)
-	bidan.Put("/:id", controller.Update)
-	bidan.Delete("/:id", controller.Delete)
+	user := app.Group("/api/user", middleware.Authenticate("public"))
 
-	public := app.Group("/api/user", middleware.Authenticate("public"))
-	public.Get("/role/:role", controller.GetByRole)
-	public.Get("/:id", controller.GetByID)
+	user.Get("/role/:role", middleware.AuthorizeRole(), controller.GetByRole)
+	user.Put("/:id", middleware.AuthorizeUser(), controller.Update)
+	user.Put("/:id/auth", middleware.AuthorizeUser(), controller.UpdateAuth)
+	user.Get("/:id", middleware.AuthorizeUser(), controller.GetByID)
+
+	user.Post("/register", middleware.Authenticate("bidan"), controller.Register)
+	user.Get("/", middleware.Authenticate("bidan"), controller.GetAll)
+	user.Get("/:id", middleware.Authenticate("bidan"), controller.GetByID)
+	user.Delete("/:id", middleware.Authenticate("bidan"), controller.Delete)
 }
 
 func (controller *userControllerImpl) Login(ctx *fiber.Ctx) error {
@@ -128,6 +130,29 @@ func (controller *userControllerImpl) Update(ctx *fiber.Ctx) error {
 		Code:   fiber.StatusOK,
 		Status: "OK",
 		Data:   response,
+	})
+}
+
+func (controller *userControllerImpl) UpdateAuth(ctx *fiber.Ctx) error {
+	var request model.UserUpdateAuthRequest
+
+	err := ctx.BodyParser(&request)
+	exception.PanicIfNeeded(err)
+
+	id, err := ctx.ParamsInt("id")
+	if err != nil {
+		panic(exception.BadRequestError{
+			Message: "Invalid parameter",
+		})
+	}
+
+	err = controller.UserService.UpdateAuth(id, &request)
+	exception.PanicIfNeeded(err)
+
+	return ctx.Status(fiber.StatusOK).JSON(web.Response{
+		Code:   fiber.StatusOK,
+		Status: "OK",
+		Data:   "Account updated successfully!",
 	})
 }
 

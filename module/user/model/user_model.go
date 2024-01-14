@@ -50,7 +50,14 @@ type UserUpdateRequest struct {
 	Foto      string `json:"foto"`
 }
 
+type UserUpdateAuthRequest struct {
+	Username    string `json:"username" validate:"required"`
+	Password    string `json:"password" validate:"required"`
+	NewPassword string `json:"new_password" validate:"required"`
+}
+
 type UserResponse struct {
+	ID           int    `json:"id"`
 	Nama         string `json:"nama"`
 	Email        string `json:"email"`
 	Username     string `json:"username"`

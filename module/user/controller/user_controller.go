@@ -11,5 +11,6 @@ type UserController interface {
 	GetByRole(ctx *fiber.Ctx) error
 	GetByID(ctx *fiber.Ctx) error
 	Update(ctx *fiber.Ctx) error
+	UpdateAuth(ctx *fiber.Ctx) error
 	Delete(ctx *fiber.Ctx) error
 }

@@ -9,5 +9,6 @@ type UserService interface {
 	GetByRole(role string) ([]model.UserResponse, error)
 	GetByID(id int) (model.UserResponse, error)
 	Update(id int, request *model.UserUpdateRequest) (model.UserResponse, error)
+	UpdateAuth(id int, request *model.UserUpdateAuthRequest) error
 	Delete(id int) error
 }
