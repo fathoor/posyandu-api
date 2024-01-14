@@ -35,7 +35,7 @@ func (service *userServiceImpl) Login(request *model.LoginRequest) (model.LoginR
 		})
 	}
 
-	token, err := helper.GenerateJWT(user.Username, user.Role)
+	token, err := helper.GenerateJWT(user.ID, user.Role)
 	exception.PanicIfNeeded(err)
 
 	response := model.LoginResponse{
@@ -83,6 +83,7 @@ func (service *userServiceImpl) Register(request *model.UserRegisterRequest) (mo
 	exception.PanicIfNeeded(err)
 
 	response := model.UserResponse{
+		ID:           user.ID,
 		Nama:         user.Nama,
 		Email:        user.Email,
 		Username:     user.Username,
@@ -112,6 +113,7 @@ func (service *userServiceImpl) GetAll() ([]model.UserResponse, error) {
 	response := make([]model.UserResponse, len(user))
 	for i, user := range user {
 		response[i] = model.UserResponse{
+			ID:           user.ID,
 			Nama:         user.Nama,
 			Email:        user.Email,
 			Username:     user.Username,
@@ -146,6 +148,7 @@ func (service *userServiceImpl) GetByRole(role string) ([]model.UserResponse, er
 	response := make([]model.UserResponse, len(user))
 	for i, user := range user {
 		response[i] = model.UserResponse{
+			ID:           user.ID,
 			Nama:         user.Nama,
 			Email:        user.Email,
 			Username:     user.Username,
@@ -178,6 +181,7 @@ func (service *userServiceImpl) GetByID(id int) (model.UserResponse, error) {
 	}
 
 	response := model.UserResponse{
+		ID:           user.ID,
 		Nama:         user.Nama,
 		Email:        user.Email,
 		Username:     user.Username,
@@ -235,6 +239,7 @@ func (service *userServiceImpl) Update(id int, request *model.UserUpdateRequest)
 	exception.PanicIfNeeded(err)
 
 	response := model.UserResponse{
+		ID:           user.ID,
 		Nama:         user.Nama,
 		Email:        user.Email,
 		Username:     user.Username,
@@ -255,6 +260,38 @@ func (service *userServiceImpl) Update(id int, request *model.UserUpdateRequest)
 	}
 
 	return response, nil
+}
+
+func (service *userServiceImpl) UpdateAuth(id int, request *model.UserUpdateAuthRequest) error {
+	valid := validation.ValidateUserUpdateAuthRequest(request)
+	if valid != nil {
+		panic(exception.BadRequestError{
+			Message: "Invalid request data",
+		})
+	}
+
+	user, err := service.UserRepository.FindByID(id)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: "User not found",
+		})
+	}
+
+	if user != (entity.User{}) {
+		if !helper.DecryptPassword(user.Password, request.Password) {
+			panic(exception.UnauthorizedError{
+				Message: "Wrong password",
+			})
+		}
+
+		encrypted, err := helper.EncryptPassword(request.NewPassword)
+		exception.PanicIfNeeded(err)
+
+		user.Username = request.Username
+		user.Password = string(encrypted)
+	}
+
+	return service.UserRepository.Save(&user)
 }
 
 func (service *userServiceImpl) Delete(id int) error {
