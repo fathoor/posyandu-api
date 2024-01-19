@@ -8,7 +8,7 @@ import (
 
 type Pengampu struct {
 	ID         int                     `gorm:"column:id;primaryKey;autoIncrement"`
-	BidanID    int                     `gorm:"column:bidan_id;not null"`
+	BidanID    int                     `gorm:"column:bidan_id;not null;unique"`
 	Bidan      bidanEntity.Bidan       `gorm:"foreignKey:bidan_id;references:id"`
 	PosyanduID int                     `gorm:"column:posyandu_id;not null"`
 	Posyandu   posyanduEntity.Posyandu `gorm:"foreignKey:posyandu_id;references:id"`
