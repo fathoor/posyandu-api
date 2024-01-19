@@ -29,7 +29,7 @@ func (repository *pengampuRepositoryImpl) FindByID(id int) (entity.Pengampu, err
 
 func (repository *pengampuRepositoryImpl) FindByBidanID(id int) (entity.Pengampu, error) {
 	var pengampu entity.Pengampu
-	err := repository.DB.Last(&pengampu, "bidan_id = ?", id).Error
+	err := repository.DB.Take(&pengampu, "bidan_id = ?", id).Error
 
 	return pengampu, err
 }
