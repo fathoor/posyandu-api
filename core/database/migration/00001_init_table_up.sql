@@ -72,7 +72,7 @@ CREATE TABLE remaja (
 -- Pengampu Posyandu
 CREATE TABLE pengampu_posyandu (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    bidan_id INT NOT NULL,
+    bidan_id INT NOT NULL UNIQUE,
     posyandu_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
