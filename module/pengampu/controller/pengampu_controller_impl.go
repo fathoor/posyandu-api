@@ -17,9 +17,9 @@ func (controller *pengampuControllerImpl) Route(app *fiber.App) {
 	pengampu := app.Group("/api/pengampu", middleware.Authenticate("bidan"))
 	pengampu.Post("/", controller.Create)
 	pengampu.Get("/", controller.GetAll)
-	pengampu.Get("/:id", controller.GetByID)
-	pengampu.Put("/:id", controller.Update)
-	pengampu.Delete("/:id", controller.Delete)
+	pengampu.Get("/bidan/:id", controller.GetByID)
+	pengampu.Put("/", controller.Update)
+	pengampu.Delete("/bidan/:id/posyandu/:pid", controller.Delete)
 }
 
 func (controller *pengampuControllerImpl) Create(ctx *fiber.Ctx) error {
@@ -73,14 +73,7 @@ func (controller *pengampuControllerImpl) Update(ctx *fiber.Ctx) error {
 	err := ctx.BodyParser(&request)
 	exception.PanicIfNeeded(err)
 
-	id, err := ctx.ParamsInt("id")
-	if err != nil {
-		panic(exception.BadRequestError{
-			Message: "Invalid parameter",
-		})
-	}
-
-	response, err := controller.PengampuService.Update(id, &request)
+	response, err := controller.PengampuService.Update(&request)
 	exception.PanicIfNeeded(err)
 
 	return ctx.Status(fiber.StatusOK).JSON(web.Response{
@@ -98,7 +91,14 @@ func (controller *pengampuControllerImpl) Delete(ctx *fiber.Ctx) error {
 		})
 	}
 
-	err = controller.PengampuService.Delete(id)
+	pid, err := ctx.ParamsInt("pid")
+	if err != nil {
+		panic(exception.BadRequestError{
+			Message: "Invalid parameter",
+		})
+	}
+
+	err = controller.PengampuService.Delete(id, pid)
 	exception.PanicIfNeeded(err)
 
 	return ctx.SendStatus(fiber.StatusNoContent)

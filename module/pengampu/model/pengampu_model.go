@@ -6,8 +6,9 @@ type PengampuCreateRequest struct {
 }
 
 type PengampuUpdateRequest struct {
-	BidanID    int `json:"bidan_id" validate:"required"`
-	PosyanduID int `json:"posyandu_id" validate:"required"`
+	BidanID    int  `json:"bidan_id" validate:"required"`
+	PosyanduID int  `json:"posyandu_id" validate:"required"`
+	Active     bool `json:"active" validate:"required"`
 }
 
 type PengampuBidanUserResponse struct {
@@ -33,7 +34,7 @@ type PengampuPosyanduResponse struct {
 }
 
 type PengampuResponse struct {
-	ID       int                      `json:"id"`
 	Bidan    PengampuBidanResponse    `json:"bidan"`
 	Posyandu PengampuPosyanduResponse `json:"posyandu"`
+	Active   bool                     `json:"active"`
 }
