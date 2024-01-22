@@ -75,7 +75,8 @@ func ProvideRemaja(app *fiber.App, db *gorm.DB) {
 	remajaRepo := remajaRepository.ProvideRemajaRepository(db)
 	posyanduRepo := posyanduRepository.ProvidePosyanduRepository(db)
 	userRepo := userRepository.ProvideUserRepository(db)
-	service := remajaService.ProvideRemajaService(&remajaRepo, &posyanduRepo, &userRepo)
+	pemeriksaanRepo := pemeriksaanRepository.ProvidePemeriksaanRepository(db)
+	service := remajaService.ProvideRemajaService(&remajaRepo, &posyanduRepo, &userRepo, &pemeriksaanRepo)
 	controller := remajaController.ProvideRemajaController(&service)
 
 	controller.Route(app)
