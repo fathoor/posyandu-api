@@ -109,10 +109,12 @@ CREATE TABLE jadwal_penyuluhan (
 -- Pemeriksaan
 CREATE TABLE pemeriksaan (
     id INT PRIMARY KEY AUTO_INCREMENT,
+    posyandu_id INT NOT NULL,
     remaja_id INT NOT NULL,
     berat_badan DECIMAL,
     tinggi_badan DECIMAL,
-    tekanan_darah DECIMAL,
+    sistole DECIMAL,
+    diastole DECIMAL,
     lingkar_lengan DECIMAL,
     tingkat_glukosa DECIMAL,
     kadar_hemoglobin DECIMAL,
