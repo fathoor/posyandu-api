@@ -2,6 +2,8 @@ package service
 
 import (
 	"github.com/itsLeonB/posyandu-api/core/exception"
+	pemeriksaanEntity "github.com/itsLeonB/posyandu-api/module/pemeriksaan/entity"
+	pemeriksaanRepository "github.com/itsLeonB/posyandu-api/module/pemeriksaan/repository"
 	posyanduRepository "github.com/itsLeonB/posyandu-api/module/posyandu/repository"
 	"github.com/itsLeonB/posyandu-api/module/remaja/entity"
 	"github.com/itsLeonB/posyandu-api/module/remaja/model"
@@ -11,9 +13,10 @@ import (
 )
 
 type remajaServiceImpl struct {
-	remajaRepo   remajaRepository.RemajaRepository
-	posyanduRepo posyanduRepository.PosyanduRepository
-	userRepo     userRepository.UserRepository
+	remajaRepo      remajaRepository.RemajaRepository
+	posyanduRepo    posyanduRepository.PosyanduRepository
+	userRepo        userRepository.UserRepository
+	pemeriksaanRepo pemeriksaanRepository.PemeriksaanRepository
 }
 
 func (service *remajaServiceImpl) Create(request *model.RemajaCreateRequest) (model.RemajaResponse, error) {
@@ -111,6 +114,95 @@ func (service *remajaServiceImpl) GetAll() ([]model.RemajaResponse, error) {
 			NamaAyah: remaja.NamaAyah,
 			NamaIbu:  remaja.NamaIbu,
 			IsKader:  remaja.IsKader,
+		}
+	}
+
+	return response, nil
+}
+
+func (service *remajaServiceImpl) GetByPosyanduID(id int) ([]model.RemajaPemeriksaanResponse, error) {
+	remaja, err := service.remajaRepo.FindByPosyanduID(id)
+	exception.PanicIfNeeded(err)
+
+	response := make([]model.RemajaPemeriksaanResponse, len(remaja))
+	for i, remaja := range remaja {
+		posyandu, err := service.posyanduRepo.FindByID(remaja.PosyanduID)
+		if err != nil {
+			panic(exception.NotFoundError{
+				Message: "Posyandu not found",
+			})
+		}
+
+		user, err := service.userRepo.FindByID(remaja.UserID)
+		if err != nil {
+			panic(exception.NotFoundError{
+				Message: "User not found",
+			})
+		}
+
+		pemeriksaan, err := service.pemeriksaanRepo.FindLastByRemajaID(remaja.ID)
+		if err != nil {
+			pemeriksaan = pemeriksaanEntity.Pemeriksaan{}
+		}
+
+		response[i] = model.RemajaPemeriksaanResponse{
+			ID: remaja.ID,
+			Posyandu: model.RemajaPosyanduResponse{
+				ID:     posyandu.ID,
+				Nama:   posyandu.Nama,
+				Alamat: posyandu.Alamat,
+				Foto:   posyandu.Foto,
+			},
+			User: model.RemajaUserResponse{
+				ID:           user.ID,
+				Nama:         user.Nama,
+				NIK:          user.NIK,
+				TanggalLahir: user.TanggalLahir.Format("2006-01-02"),
+				Foto:         user.Foto,
+				Role:         user.Role,
+			},
+			NamaAyah: remaja.NamaAyah,
+			NamaIbu:  remaja.NamaIbu,
+			IsKader:  remaja.IsKader,
+			Pemeriksaan: model.PemeriksaanResponse{
+				ID: pemeriksaan.ID,
+				Posyandu: model.RemajaPosyanduResponse{
+					ID:     posyandu.ID,
+					Nama:   posyandu.Nama,
+					Alamat: posyandu.Alamat,
+					Foto:   posyandu.Foto,
+				},
+				Remaja: model.RemajaResponse{
+					ID: remaja.ID,
+					Posyandu: model.RemajaPosyanduResponse{
+						ID:     posyandu.ID,
+						Nama:   posyandu.Nama,
+						Alamat: posyandu.Alamat,
+						Foto:   posyandu.Foto,
+					},
+					User: model.RemajaUserResponse{
+						ID:           user.ID,
+						Nama:         user.Nama,
+						NIK:          user.NIK,
+						TanggalLahir: user.TanggalLahir.Format("2006-01-02"),
+						Foto:         user.Foto,
+						Role:         user.Role,
+					},
+					NamaAyah: remaja.NamaAyah,
+					NamaIbu:  remaja.NamaIbu,
+					IsKader:  remaja.IsKader,
+				},
+				BeratBadan:      pemeriksaan.BeratBadan,
+				TinggiBadan:     pemeriksaan.TinggiBadan,
+				Sistole:         pemeriksaan.Sistole,
+				Diastole:        pemeriksaan.Diastole,
+				LingkarLengan:   pemeriksaan.LingkarLengan,
+				TingkatGlukosa:  pemeriksaan.TingkatGlukosa,
+				KadarHemoglobin: pemeriksaan.KadarHemoglobin,
+				PemberianFe:     pemeriksaan.PemberianFe,
+				WaktuPengukuran: pemeriksaan.WaktuPengukuran.Format("2006-01-02 15:04:05"),
+				KondisiUmum:     pemeriksaan.KondisiUmum,
+			},
 		}
 	}
 
@@ -299,6 +391,7 @@ func ProvideRemajaService(
 	remajaRepo *remajaRepository.RemajaRepository,
 	posyanduRepo *posyanduRepository.PosyanduRepository,
 	userRepo *userRepository.UserRepository,
+	pemeriksaanRepo *pemeriksaanRepository.PemeriksaanRepository,
 ) RemajaService {
-	return &remajaServiceImpl{*remajaRepo, *posyanduRepo, *userRepo}
+	return &remajaServiceImpl{*remajaRepo, *posyanduRepo, *userRepo, *pemeriksaanRepo}
 }

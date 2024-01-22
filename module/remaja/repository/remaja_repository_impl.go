@@ -20,6 +20,13 @@ func (repository *remajaRepositoryImpl) FindAll() ([]entity.Remaja, error) {
 	return remaja, err
 }
 
+func (repository *remajaRepositoryImpl) FindByPosyanduID(id int) ([]entity.Remaja, error) {
+	var remaja []entity.Remaja
+	err := repository.DB.Find(&remaja, "posyandu_id = ?", id).Error
+
+	return remaja, err
+}
+
 func (repository *remajaRepositoryImpl) FindByID(id int) (entity.Remaja, error) {
 	var remaja entity.Remaja
 	err := repository.DB.Take(&remaja, id).Error
