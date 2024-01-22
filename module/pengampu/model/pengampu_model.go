@@ -1,8 +1,9 @@
 package model
 
 type PengampuCreateRequest struct {
-	BidanID    int `json:"bidan_id" validate:"required"`
-	PosyanduID int `json:"posyandu_id" validate:"required"`
+	BidanID    int  `json:"bidan_id" validate:"required"`
+	PosyanduID int  `json:"posyandu_id" validate:"required"`
+	Active     bool `json:"active" validate:"required"`
 }
 
 type PengampuUpdateRequest struct {
