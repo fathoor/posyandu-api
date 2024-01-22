@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"github.com/itsLeonB/posyandu-api/core/exception"
 	"github.com/itsLeonB/posyandu-api/module/pengampu/entity"
 	"gorm.io/gorm"
 )
@@ -20,21 +21,33 @@ func (repository *pengampuRepositoryImpl) FindAll() ([]entity.Pengampu, error) {
 	return pengampu, err
 }
 
-func (repository *pengampuRepositoryImpl) FindByID(id int) (entity.Pengampu, error) {
-	var pengampu entity.Pengampu
-	err := repository.DB.Take(&pengampu, id).Error
+func (repository *pengampuRepositoryImpl) FindByID(id int) ([]entity.Pengampu, error) {
+	var pengampu []entity.Pengampu
+	err := repository.DB.Find(&pengampu, "bidan_id = ?", id).Error
 
 	return pengampu, err
 }
 
-func (repository *pengampuRepositoryImpl) FindByBidanID(id int) (entity.Pengampu, error) {
+func (repository *pengampuRepositoryImpl) FindByBidanAndPosyanduID(bidanID int, posyanduID int) (entity.Pengampu, error) {
 	var pengampu entity.Pengampu
-	err := repository.DB.Take(&pengampu, "bidan_id = ?", id).Error
+	err := repository.DB.Take(&pengampu, "bidan_id = ? AND posyandu_id = ?", bidanID, posyanduID).Error
+
+	return pengampu, err
+}
+
+func (repository *pengampuRepositoryImpl) FindByActiveBidanID(id int) (entity.Pengampu, error) {
+	var pengampu entity.Pengampu
+	err := repository.DB.Take(&pengampu, "bidan_id = ? AND active = ?", id, true).Error
 
 	return pengampu, err
 }
 
 func (repository *pengampuRepositoryImpl) Save(pengampu *entity.Pengampu) error {
+	if pengampu.Active {
+		err := repository.DB.Model(&entity.Pengampu{}).Where("bidan_id = ?", pengampu.BidanID).Update("active", false).Error
+		exception.PanicIfNeeded(err)
+	}
+
 	return repository.DB.Save(&pengampu).Error
 }
 

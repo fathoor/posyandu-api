@@ -71,11 +71,12 @@ CREATE TABLE remaja (
 
 -- Pengampu Posyandu
 CREATE TABLE pengampu_posyandu (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    bidan_id INT NOT NULL UNIQUE,
+    bidan_id INT NOT NULL,
     posyandu_id INT NOT NULL,
+    active BOOL DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (bidan_id, posyandu_id),
     FOREIGN KEY (bidan_id) REFERENCES bidan(id) ON DELETE CASCADE,
     FOREIGN KEY (posyandu_id) REFERENCES posyandu(id) ON DELETE CASCADE
 ) ENGINE = InnoDB;

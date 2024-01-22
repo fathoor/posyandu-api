@@ -56,7 +56,6 @@ func (service *pengampuServiceImpl) Create(request *model.PengampuCreateRequest)
 	exception.PanicIfNeeded(err)
 
 	response := model.PengampuResponse{
-		ID: pengampu.ID,
 		Bidan: model.PengampuBidanResponse{
 			ID: bidan.ID,
 			User: model.PengampuBidanUserResponse{
@@ -75,6 +74,7 @@ func (service *pengampuServiceImpl) Create(request *model.PengampuCreateRequest)
 			Alamat: posyandu.Alamat,
 			Foto:   posyandu.Foto,
 		},
+		Active: pengampu.Active,
 	}
 
 	return response, nil
@@ -108,7 +108,6 @@ func (service *pengampuServiceImpl) GetAll() ([]model.PengampuResponse, error) {
 		}
 
 		response[i] = model.PengampuResponse{
-			ID: pengampu.ID,
 			Bidan: model.PengampuBidanResponse{
 				ID: bidan.ID,
 				User: model.PengampuBidanUserResponse{
@@ -127,67 +126,67 @@ func (service *pengampuServiceImpl) GetAll() ([]model.PengampuResponse, error) {
 				Alamat: posyandu.Alamat,
 				Foto:   posyandu.Foto,
 			},
+			Active: pengampu.Active,
 		}
 	}
 
 	return response, nil
 }
 
-func (service *pengampuServiceImpl) GetByID(id int) (model.PengampuResponse, error) {
+func (service *pengampuServiceImpl) GetByID(id int) ([]model.PengampuResponse, error) {
 	pengampu, err := service.PengampuRepository.FindByID(id)
-	if err != nil {
-		panic(exception.NotFoundError{
-			Message: "Pengampu not found",
-		})
-	}
+	exception.PanicIfNeeded(err)
 
-	bidan, err := service.BidanRepository.FindByID(pengampu.BidanID)
-	if err != nil {
-		panic(exception.NotFoundError{
-			Message: "Bidan not found",
-		})
-	}
+	response := make([]model.PengampuResponse, len(pengampu))
+	for i, pengampu := range pengampu {
+		bidan, err := service.BidanRepository.FindByID(pengampu.BidanID)
+		if err != nil {
+			panic(exception.NotFoundError{
+				Message: "Bidan not found",
+			})
+		}
 
-	user, err := service.UserRepository.FindByID(bidan.UserID)
-	if err != nil {
-		panic(exception.NotFoundError{
-			Message: "User not found",
-		})
-	}
+		user, err := service.UserRepository.FindByID(bidan.UserID)
+		if err != nil {
+			panic(exception.NotFoundError{
+				Message: "User not found",
+			})
+		}
 
-	posyandu, err := service.PosyanduRepository.FindByID(pengampu.PosyanduID)
-	if err != nil {
-		panic(exception.NotFoundError{
-			Message: "Posyandu not found",
-		})
-	}
+		posyandu, err := service.PosyanduRepository.FindByID(pengampu.PosyanduID)
+		if err != nil {
+			panic(exception.NotFoundError{
+				Message: "Posyandu not found",
+			})
+		}
 
-	response := model.PengampuResponse{
-		ID: pengampu.ID,
-		Bidan: model.PengampuBidanResponse{
-			ID: bidan.ID,
-			User: model.PengampuBidanUserResponse{
-				ID:           user.ID,
-				Nama:         user.Nama,
-				NIK:          user.NIK,
-				TanggalLahir: user.TanggalLahir.Format("2006-01-02"),
-				Foto:         user.Foto,
-				Role:         user.Role,
+		response[i] = model.PengampuResponse{
+			Bidan: model.PengampuBidanResponse{
+				ID: bidan.ID,
+				User: model.PengampuBidanUserResponse{
+					ID:           user.ID,
+					Nama:         user.Nama,
+					NIK:          user.NIK,
+					TanggalLahir: user.TanggalLahir.Format("2006-01-02"),
+					Foto:         user.Foto,
+					Role:         user.Role,
+				},
+				Jabatan: bidan.Jabatan,
 			},
-			Jabatan: bidan.Jabatan,
-		},
-		Posyandu: model.PengampuPosyanduResponse{
-			ID:     posyandu.ID,
-			Nama:   posyandu.Nama,
-			Alamat: posyandu.Alamat,
-			Foto:   posyandu.Foto,
-		},
+			Posyandu: model.PengampuPosyanduResponse{
+				ID:     posyandu.ID,
+				Nama:   posyandu.Nama,
+				Alamat: posyandu.Alamat,
+				Foto:   posyandu.Foto,
+			},
+			Active: pengampu.Active,
+		}
 	}
 
 	return response, nil
 }
 
-func (service *pengampuServiceImpl) Update(id int, request *model.PengampuUpdateRequest) (model.PengampuResponse, error) {
+func (service *pengampuServiceImpl) Update(request *model.PengampuUpdateRequest) (model.PengampuResponse, error) {
 	valid := validation.ValidatePengampuUpdateRequest(request)
 	if valid != nil {
 		panic(exception.BadRequestError{
@@ -195,7 +194,7 @@ func (service *pengampuServiceImpl) Update(id int, request *model.PengampuUpdate
 		})
 	}
 
-	pengampu, err := service.PengampuRepository.FindByID(id)
+	pengampu, err := service.PengampuRepository.FindByBidanAndPosyanduID(request.BidanID, request.PosyanduID)
 	if err != nil {
 		panic(exception.NotFoundError{
 			Message: "Pengampu not found",
@@ -204,6 +203,7 @@ func (service *pengampuServiceImpl) Update(id int, request *model.PengampuUpdate
 
 	pengampu.BidanID = request.BidanID
 	pengampu.PosyanduID = request.PosyanduID
+	pengampu.Active = request.Active
 
 	bidan, err := service.BidanRepository.FindByID(pengampu.BidanID)
 	if err != nil {
@@ -230,7 +230,6 @@ func (service *pengampuServiceImpl) Update(id int, request *model.PengampuUpdate
 	exception.PanicIfNeeded(err)
 
 	response := model.PengampuResponse{
-		ID: pengampu.ID,
 		Bidan: model.PengampuBidanResponse{
 			ID: bidan.ID,
 			User: model.PengampuBidanUserResponse{
@@ -249,13 +248,14 @@ func (service *pengampuServiceImpl) Update(id int, request *model.PengampuUpdate
 			Alamat: posyandu.Alamat,
 			Foto:   posyandu.Foto,
 		},
+		Active: pengampu.Active,
 	}
 
 	return response, nil
 }
 
-func (service *pengampuServiceImpl) Delete(id int) error {
-	pengampu, err := service.PengampuRepository.FindByID(id)
+func (service *pengampuServiceImpl) Delete(id, pid int) error {
+	pengampu, err := service.PengampuRepository.FindByBidanAndPosyanduID(id, pid)
 	if err != nil {
 		panic(exception.NotFoundError{
 			Message: "Pengampu not found",
