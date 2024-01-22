@@ -11,6 +11,11 @@ type pengampuRepositoryImpl struct {
 }
 
 func (repository *pengampuRepositoryImpl) Insert(pengampu *entity.Pengampu) error {
+	if pengampu.Active && repository.DB.Find(&entity.Pengampu{}, "bidan_id = ?", pengampu.BidanID).RowsAffected > 0 {
+		err := repository.DB.Model(&entity.Pengampu{}).Where("bidan_id = ?", pengampu.BidanID).Update("active", false).Error
+		exception.PanicIfNeeded(err)
+	}
+
 	return repository.DB.Create(&pengampu).Error
 }
 
