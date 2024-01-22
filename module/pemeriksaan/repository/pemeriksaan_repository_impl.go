@@ -34,6 +34,13 @@ func (repository *pemeriksaanRepositoryImpl) FindByID(id int) (entity.Pemeriksaa
 	return pemeriksaan, err
 }
 
+func (repository *pemeriksaanRepositoryImpl) FindLastByRemajaID(id int) (entity.Pemeriksaan, error) {
+	var pemeriksaan entity.Pemeriksaan
+	err := repository.DB.Last(&pemeriksaan, "remaja_id = ?", id).Error
+
+	return pemeriksaan, err
+}
+
 func (repository *pemeriksaanRepositoryImpl) Save(pemeriksaan *entity.Pemeriksaan) error {
 	return repository.DB.Save(&pemeriksaan).Error
 }

@@ -109,10 +109,12 @@ CREATE TABLE jadwal_penyuluhan (
 -- Pemeriksaan
 CREATE TABLE pemeriksaan (
     id INT PRIMARY KEY AUTO_INCREMENT,
+    posyandu_id INT NOT NULL,
     remaja_id INT NOT NULL,
     berat_badan DECIMAL,
     tinggi_badan DECIMAL,
-    tekanan_darah DECIMAL,
+    sistole DECIMAL,
+    diastole DECIMAL,
     lingkar_lengan DECIMAL,
     tingkat_glukosa DECIMAL,
     kadar_hemoglobin DECIMAL,
@@ -122,5 +124,6 @@ CREATE TABLE pemeriksaan (
     keterangan TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (posyandu_id) REFERENCES posyandu(id) ON DELETE CASCADE,
     FOREIGN KEY (remaja_id) REFERENCES remaja(id) ON DELETE CASCADE
 ) ENGINE = InnoDB;

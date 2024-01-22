@@ -7,6 +7,7 @@ type PemeriksaanRepository interface {
 	FindAll() ([]entity.Pemeriksaan, error)
 	FindAllByRemajaID(id int) ([]entity.Pemeriksaan, error)
 	FindByID(id int) (entity.Pemeriksaan, error)
+	FindLastByRemajaID(id int) (entity.Pemeriksaan, error)
 	Save(pemeriksaan *entity.Pemeriksaan) error
 	Delete(pemeriksaan *entity.Pemeriksaan) error
 }

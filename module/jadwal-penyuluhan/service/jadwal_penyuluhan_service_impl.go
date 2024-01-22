@@ -91,6 +91,38 @@ func (service *jadwalPenyuluhanServiceImpl) GetAll() ([]model.JadwalPenyuluhanRe
 	return response, nil
 }
 
+func (service *jadwalPenyuluhanServiceImpl) GetByPosyanduID(id int) ([]model.JadwalPenyuluhanResponse, error) {
+	jadwalPenyuluhan, err := service.jadwalPenyuluhanRepo.FindByPosyanduID(id)
+	exception.PanicIfNeeded(err)
+
+	response := make([]model.JadwalPenyuluhanResponse, len(jadwalPenyuluhan))
+	for i, jadwalPenyuluhan := range jadwalPenyuluhan {
+		posyandu, err := service.posyanduRepo.FindByID(jadwalPenyuluhan.PosyanduID)
+		if err != nil {
+			panic(exception.NotFoundError{
+				Message: "Posyandu not found",
+			})
+		}
+
+		response[i] = model.JadwalPenyuluhanResponse{
+			ID: jadwalPenyuluhan.ID,
+			Posyandu: model.JadwalPenyuluhanPosyanduResponse{
+				ID:     posyandu.ID,
+				Nama:   posyandu.Nama,
+				Alamat: posyandu.Alamat,
+				Foto:   posyandu.Foto,
+			},
+			WaktuMulai:   jadwalPenyuluhan.WaktuMulai.Format("2006-01-02 15:04:05"),
+			WaktuSelesai: jadwalPenyuluhan.WaktuSelesai.Format("2006-01-02 15:04:05"),
+			Title:        jadwalPenyuluhan.Title,
+			Materi:       jadwalPenyuluhan.Materi,
+			Feedback:     jadwalPenyuluhan.Feedback,
+		}
+	}
+
+	return response, nil
+}
+
 func (service *jadwalPenyuluhanServiceImpl) GetByID(id int) (model.JadwalPenyuluhanResponse, error) {
 	jadwalPenyuluhan, err := service.jadwalPenyuluhanRepo.FindByID(id)
 	if err != nil {

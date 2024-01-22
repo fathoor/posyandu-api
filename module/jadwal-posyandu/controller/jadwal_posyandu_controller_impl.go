@@ -17,6 +17,7 @@ func (controller *jadwalPosyanduControllerImpl) Route(app *fiber.App) {
 	jadwalPosyandu := app.Group("/api/jadwal-posyandu", middleware.Authenticate("public"))
 	jadwalPosyandu.Post("/", middleware.Authenticate("bidan"), controller.Create)
 	jadwalPosyandu.Get("/", controller.GetAll)
+	jadwalPosyandu.Get("/posyandu/:id", controller.GetByPosyanduID)
 	jadwalPosyandu.Get("/:id", controller.GetByID)
 	jadwalPosyandu.Put("/:id", middleware.Authenticate("bidan"), controller.Update)
 	jadwalPosyandu.Delete("/:id", middleware.Authenticate("bidan"), controller.Delete)
@@ -40,6 +41,24 @@ func (controller *jadwalPosyanduControllerImpl) Create(ctx *fiber.Ctx) error {
 
 func (controller *jadwalPosyanduControllerImpl) GetAll(ctx *fiber.Ctx) error {
 	response, err := controller.JadwalPosyanduService.GetAll()
+	exception.PanicIfNeeded(err)
+
+	return ctx.Status(fiber.StatusOK).JSON(web.Response{
+		Code:   fiber.StatusOK,
+		Status: "OK",
+		Data:   response,
+	})
+}
+
+func (controller *jadwalPosyanduControllerImpl) GetByPosyanduID(ctx *fiber.Ctx) error {
+	id, err := ctx.ParamsInt("id")
+	if err != nil {
+		panic(exception.BadRequestError{
+			Message: "Invalid parameter",
+		})
+	}
+
+	response, err := controller.JadwalPosyanduService.GetByPosyanduID(id)
 	exception.PanicIfNeeded(err)
 
 	return ctx.Status(fiber.StatusOK).JSON(web.Response{

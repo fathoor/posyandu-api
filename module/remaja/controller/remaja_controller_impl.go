@@ -17,6 +17,7 @@ func (controller *remajaControllerImpl) Route(app *fiber.App) {
 	bidan := app.Group("/api/remaja", middleware.Authenticate("bidan"))
 	bidan.Post("/", controller.Create)
 	bidan.Get("/", controller.GetAll)
+	bidan.Get("/posyandu/:id", controller.GetByPosyanduID)
 	bidan.Get("/:id", controller.GetByID)
 	bidan.Put("/:id", controller.UpdateKader)
 	bidan.Delete("/:id", controller.Delete)
@@ -46,6 +47,24 @@ func (controller *remajaControllerImpl) Create(ctx *fiber.Ctx) error {
 
 func (controller *remajaControllerImpl) GetAll(ctx *fiber.Ctx) error {
 	response, err := controller.RemajaService.GetAll()
+	exception.PanicIfNeeded(err)
+
+	return ctx.Status(fiber.StatusOK).JSON(web.Response{
+		Code:   fiber.StatusOK,
+		Status: "OK",
+		Data:   response,
+	})
+}
+
+func (controller *remajaControllerImpl) GetByPosyanduID(ctx *fiber.Ctx) error {
+	id, err := ctx.ParamsInt("id")
+	if err != nil {
+		panic(exception.BadRequestError{
+			Message: "Invalid parameter",
+		})
+	}
+
+	response, err := controller.RemajaService.GetByPosyanduID(id)
 	exception.PanicIfNeeded(err)
 
 	return ctx.Status(fiber.StatusOK).JSON(web.Response{
