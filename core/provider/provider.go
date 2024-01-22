@@ -34,6 +34,7 @@ import (
 )
 
 func ProvideModule(app *fiber.App, db *gorm.DB) {
+	ProvideStatic(app)
 	ProvideUser(app, db)
 	ProvideBidan(app, db)
 	ProvidePosyandu(app, db)
@@ -44,6 +45,13 @@ func ProvideModule(app *fiber.App, db *gorm.DB) {
 	ProvidePemeriksaan(app, db)
 	ProvideFile(app)
 	ProvideHome(app, db)
+}
+
+func ProvideStatic(app *fiber.App) {
+	app.Static("/admin", "./public", fiber.Static{
+		Compress: true,
+		Index:    "index.html",
+	})
 }
 
 func ProvideUser(app *fiber.App, db *gorm.DB) {

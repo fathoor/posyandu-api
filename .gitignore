@@ -12,3 +12,7 @@ storage/*
 
 # Seed
 core/database/seed/*
+
+# Static
+public/*
+!public/.gitkeep
