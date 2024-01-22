@@ -39,7 +39,7 @@ func (service *homeServiceImpl) GetBidan(id int) (model.BidanHomeResponse, error
 		})
 	}
 
-	pengampu, err := service.pengampuRepo.FindByBidanID(bidan.ID)
+	pengampu, err := service.pengampuRepo.FindByActiveBidanID(bidan.ID)
 	if err != nil {
 		panic(exception.NotFoundError{
 			Message: "Bidan is not pengampu posyandu",
