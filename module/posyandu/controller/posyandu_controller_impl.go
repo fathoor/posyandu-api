@@ -14,7 +14,7 @@ type posyanduControllerImpl struct {
 }
 
 func (controller *posyanduControllerImpl) Route(app *fiber.App) {
-	posyandu := app.Group("/api/posyandu", middleware.Authenticate("bidan"))
+	posyandu := app.Group("/v1/posyandu", middleware.Authenticate("bidan"))
 	posyandu.Post("/", controller.Create)
 	posyandu.Get("/", controller.GetAll)
 	posyandu.Get("/:id", controller.GetByID)

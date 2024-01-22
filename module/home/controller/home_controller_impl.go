@@ -14,7 +14,7 @@ type homeControllerImpl struct {
 }
 
 func (controller *homeControllerImpl) Route(app *fiber.App) {
-	home := app.Group("/api/home", middleware.Authenticate("public"))
+	home := app.Group("/v1/home", middleware.Authenticate("public"))
 	home.Get("/bidan", middleware.Authenticate("bidan"), controller.GetBidan)
 	home.Get("/", controller.Get)
 }

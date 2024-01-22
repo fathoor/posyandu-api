@@ -14,7 +14,7 @@ type jadwalPenyuluhanControllerImpl struct {
 }
 
 func (controller *jadwalPenyuluhanControllerImpl) Route(app *fiber.App) {
-	jadwalPenyuluhan := app.Group("/api/jadwal-penyuluhan", middleware.Authenticate("public"))
+	jadwalPenyuluhan := app.Group("/v1/jadwal-penyuluhan", middleware.Authenticate("public"))
 	jadwalPenyuluhan.Post("/", middleware.Authenticate("bidan"), controller.Create)
 	jadwalPenyuluhan.Get("/", controller.GetAll)
 	jadwalPenyuluhan.Get("/posyandu/:id", controller.GetByPosyanduID)
