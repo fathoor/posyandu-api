@@ -31,6 +31,8 @@ func (service *pemeriksaanServiceImpl) Create(request *model.PemeriksaanCreateRe
 		RemajaID:        request.RemajaID,
 		BeratBadan:      request.BeratBadan,
 		TinggiBadan:     request.TinggiBadan,
+		Sistole:         request.Sistole,
+		Diastole:        request.Diastole,
 		LingkarLengan:   request.LingkarLengan,
 		TingkatGlukosa:  request.TingkatGlukosa,
 		KadarHemoglobin: request.KadarHemoglobin,
@@ -346,6 +348,8 @@ func (service *pemeriksaanServiceImpl) Update(id int, request *model.Pemeriksaan
 	if pemeriksaan != (entity.Pemeriksaan{}) {
 		pemeriksaan.BeratBadan = request.BeratBadan
 		pemeriksaan.TinggiBadan = request.TinggiBadan
+		pemeriksaan.Sistole = request.Sistole
+		pemeriksaan.Diastole = request.Diastole
 		pemeriksaan.LingkarLengan = request.LingkarLengan
 		pemeriksaan.TingkatGlukosa = request.TingkatGlukosa
 		pemeriksaan.KadarHemoglobin = request.KadarHemoglobin

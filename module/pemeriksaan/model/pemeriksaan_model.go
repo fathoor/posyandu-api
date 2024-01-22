@@ -7,7 +7,8 @@ type PemeriksaanCreateRequest struct {
 	RemajaID        int       `json:"remaja_id" validate:"required"`
 	BeratBadan      float64   `json:"berat_badan"`
 	TinggiBadan     float64   `json:"tinggi_badan"`
-	TekananDarah    float64   `json:"tekanan_darah"`
+	Sistole         float64   `json:"sistole"`
+	Diastole        float64   `json:"diastole"`
 	LingkarLengan   float64   `json:"lingkar_lengan"`
 	TingkatGlukosa  float64   `json:"tingkat_glukosa"`
 	KadarHemoglobin float64   `json:"kadar_hemoglobin"`
@@ -22,7 +23,8 @@ type PemeriksaanUpdateRequest struct {
 	RemajaID        int       `json:"remaja_id" validate:"required"`
 	BeratBadan      float64   `json:"berat_badan"`
 	TinggiBadan     float64   `json:"tinggi_badan"`
-	TekananDarah    float64   `json:"tekanan_darah"`
+	Sistole         float64   `json:"sistole"`
+	Diastole        float64   `json:"diastole"`
 	LingkarLengan   float64   `json:"lingkar_lengan"`
 	TingkatGlukosa  float64   `json:"tingkat_glukosa"`
 	KadarHemoglobin float64   `json:"kadar_hemoglobin"`
