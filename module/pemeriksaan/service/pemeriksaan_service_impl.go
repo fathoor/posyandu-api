@@ -27,6 +27,7 @@ func (service *pemeriksaanServiceImpl) Create(request *model.PemeriksaanCreateRe
 	}
 
 	pemeriksaan := entity.Pemeriksaan{
+		PosyanduID:      request.PosyanduID,
 		RemajaID:        request.RemajaID,
 		BeratBadan:      request.BeratBadan,
 		TinggiBadan:     request.TinggiBadan,
@@ -65,15 +66,21 @@ func (service *pemeriksaanServiceImpl) Create(request *model.PemeriksaanCreateRe
 
 	response := model.PemeriksaanResponse{
 		ID: pemeriksaan.ID,
+		Posyandu: model.PemeriksaanPosyanduResponse{
+			ID:     posyandu.ID,
+			Nama:   posyandu.Nama,
+			Alamat: posyandu.Alamat,
+			Foto:   posyandu.Foto,
+		},
 		Remaja: model.PemeriksaanRemajaResponse{
 			ID: remaja.ID,
-			Posyandu: model.PemeriksaanRemajaPosyanduResponse{
+			Posyandu: model.PemeriksaanPosyanduResponse{
 				ID:     posyandu.ID,
 				Nama:   posyandu.Nama,
 				Alamat: posyandu.Alamat,
 				Foto:   posyandu.Foto,
 			},
-			User: model.PemeriksaanRemajaUserResponse{
+			User: model.PemeriksaanUserResponse{
 				ID:           user.ID,
 				Nama:         user.Nama,
 				NIK:          user.NIK,
@@ -87,6 +94,8 @@ func (service *pemeriksaanServiceImpl) Create(request *model.PemeriksaanCreateRe
 		},
 		BeratBadan:      pemeriksaan.BeratBadan,
 		TinggiBadan:     pemeriksaan.TinggiBadan,
+		Sistole:         pemeriksaan.Sistole,
+		Diastole:        pemeriksaan.Diastole,
 		LingkarLengan:   pemeriksaan.LingkarLengan,
 		TingkatGlukosa:  pemeriksaan.TingkatGlukosa,
 		KadarHemoglobin: pemeriksaan.KadarHemoglobin,
@@ -127,15 +136,21 @@ func (service *pemeriksaanServiceImpl) GetAll() ([]model.PemeriksaanResponse, er
 
 		response[i] = model.PemeriksaanResponse{
 			ID: pemeriksaan.ID,
+			Posyandu: model.PemeriksaanPosyanduResponse{
+				ID:     posyandu.ID,
+				Nama:   posyandu.Nama,
+				Alamat: posyandu.Alamat,
+				Foto:   posyandu.Foto,
+			},
 			Remaja: model.PemeriksaanRemajaResponse{
 				ID: remaja.ID,
-				Posyandu: model.PemeriksaanRemajaPosyanduResponse{
+				Posyandu: model.PemeriksaanPosyanduResponse{
 					ID:     posyandu.ID,
 					Nama:   posyandu.Nama,
 					Alamat: posyandu.Alamat,
 					Foto:   posyandu.Foto,
 				},
-				User: model.PemeriksaanRemajaUserResponse{
+				User: model.PemeriksaanUserResponse{
 					ID:           user.ID,
 					Nama:         user.Nama,
 					NIK:          user.NIK,
@@ -149,6 +164,8 @@ func (service *pemeriksaanServiceImpl) GetAll() ([]model.PemeriksaanResponse, er
 			},
 			BeratBadan:      pemeriksaan.BeratBadan,
 			TinggiBadan:     pemeriksaan.TinggiBadan,
+			Sistole:         pemeriksaan.Sistole,
+			Diastole:        pemeriksaan.Diastole,
 			LingkarLengan:   pemeriksaan.LingkarLengan,
 			TingkatGlukosa:  pemeriksaan.TingkatGlukosa,
 			KadarHemoglobin: pemeriksaan.KadarHemoglobin,
@@ -197,15 +214,21 @@ func (service *pemeriksaanServiceImpl) GetAllByRemajaID(id int) ([]model.Pemerik
 
 		response[i] = model.PemeriksaanResponse{
 			ID: pemeriksaan.ID,
+			Posyandu: model.PemeriksaanPosyanduResponse{
+				ID:     posyandu.ID,
+				Nama:   posyandu.Nama,
+				Alamat: posyandu.Alamat,
+				Foto:   posyandu.Foto,
+			},
 			Remaja: model.PemeriksaanRemajaResponse{
 				ID: remaja.ID,
-				Posyandu: model.PemeriksaanRemajaPosyanduResponse{
+				Posyandu: model.PemeriksaanPosyanduResponse{
 					ID:     posyandu.ID,
 					Nama:   posyandu.Nama,
 					Alamat: posyandu.Alamat,
 					Foto:   posyandu.Foto,
 				},
-				User: model.PemeriksaanRemajaUserResponse{
+				User: model.PemeriksaanUserResponse{
 					ID:           user.ID,
 					Nama:         user.Nama,
 					NIK:          user.NIK,
@@ -219,6 +242,8 @@ func (service *pemeriksaanServiceImpl) GetAllByRemajaID(id int) ([]model.Pemerik
 			},
 			BeratBadan:      pemeriksaan.BeratBadan,
 			TinggiBadan:     pemeriksaan.TinggiBadan,
+			Sistole:         pemeriksaan.Sistole,
+			Diastole:        pemeriksaan.Diastole,
 			LingkarLengan:   pemeriksaan.LingkarLengan,
 			TingkatGlukosa:  pemeriksaan.TingkatGlukosa,
 			KadarHemoglobin: pemeriksaan.KadarHemoglobin,
@@ -262,15 +287,21 @@ func (service *pemeriksaanServiceImpl) GetByID(id int) (model.PemeriksaanRespons
 
 	response := model.PemeriksaanResponse{
 		ID: pemeriksaan.ID,
+		Posyandu: model.PemeriksaanPosyanduResponse{
+			ID:     posyandu.ID,
+			Nama:   posyandu.Nama,
+			Alamat: posyandu.Alamat,
+			Foto:   posyandu.Foto,
+		},
 		Remaja: model.PemeriksaanRemajaResponse{
 			ID: remaja.ID,
-			Posyandu: model.PemeriksaanRemajaPosyanduResponse{
+			Posyandu: model.PemeriksaanPosyanduResponse{
 				ID:     posyandu.ID,
 				Nama:   posyandu.Nama,
 				Alamat: posyandu.Alamat,
 				Foto:   posyandu.Foto,
 			},
-			User: model.PemeriksaanRemajaUserResponse{
+			User: model.PemeriksaanUserResponse{
 				ID:           user.ID,
 				Nama:         user.Nama,
 				NIK:          user.NIK,
@@ -284,6 +315,8 @@ func (service *pemeriksaanServiceImpl) GetByID(id int) (model.PemeriksaanRespons
 		},
 		BeratBadan:      pemeriksaan.BeratBadan,
 		TinggiBadan:     pemeriksaan.TinggiBadan,
+		Sistole:         pemeriksaan.Sistole,
+		Diastole:        pemeriksaan.Diastole,
 		LingkarLengan:   pemeriksaan.LingkarLengan,
 		TingkatGlukosa:  pemeriksaan.TingkatGlukosa,
 		KadarHemoglobin: pemeriksaan.KadarHemoglobin,
@@ -348,15 +381,21 @@ func (service *pemeriksaanServiceImpl) Update(id int, request *model.Pemeriksaan
 
 	response := model.PemeriksaanResponse{
 		ID: pemeriksaan.ID,
+		Posyandu: model.PemeriksaanPosyanduResponse{
+			ID:     posyandu.ID,
+			Nama:   posyandu.Nama,
+			Alamat: posyandu.Alamat,
+			Foto:   posyandu.Foto,
+		},
 		Remaja: model.PemeriksaanRemajaResponse{
 			ID: remaja.ID,
-			Posyandu: model.PemeriksaanRemajaPosyanduResponse{
+			Posyandu: model.PemeriksaanPosyanduResponse{
 				ID:     posyandu.ID,
 				Nama:   posyandu.Nama,
 				Alamat: posyandu.Alamat,
 				Foto:   posyandu.Foto,
 			},
-			User: model.PemeriksaanRemajaUserResponse{
+			User: model.PemeriksaanUserResponse{
 				ID:           user.ID,
 				Nama:         user.Nama,
 				NIK:          user.NIK,
@@ -370,6 +409,8 @@ func (service *pemeriksaanServiceImpl) Update(id int, request *model.Pemeriksaan
 		},
 		BeratBadan:      pemeriksaan.BeratBadan,
 		TinggiBadan:     pemeriksaan.TinggiBadan,
+		Sistole:         pemeriksaan.Sistole,
+		Diastole:        pemeriksaan.Diastole,
 		LingkarLengan:   pemeriksaan.LingkarLengan,
 		TingkatGlukosa:  pemeriksaan.TingkatGlukosa,
 		KadarHemoglobin: pemeriksaan.KadarHemoglobin,
