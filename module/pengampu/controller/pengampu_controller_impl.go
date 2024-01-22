@@ -14,7 +14,7 @@ type pengampuControllerImpl struct {
 }
 
 func (controller *pengampuControllerImpl) Route(app *fiber.App) {
-	pengampu := app.Group("/api/pengampu", middleware.Authenticate("bidan"))
+	pengampu := app.Group("/v1/pengampu", middleware.Authenticate("bidan"))
 	pengampu.Post("/", controller.Create)
 	pengampu.Get("/", controller.GetAll)
 	pengampu.Get("/bidan/:id", controller.GetByID)

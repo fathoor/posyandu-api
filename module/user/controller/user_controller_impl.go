@@ -14,11 +14,11 @@ type userControllerImpl struct {
 }
 
 func (controller *userControllerImpl) Route(app *fiber.App) {
-	auth := app.Group("/api/auth")
+	auth := app.Group("/v1/auth")
 	auth.Post("/login", controller.Login)
 	auth.Post("/forget-password", controller.ForgetPassword)
 
-	user := app.Group("/api/user", middleware.Authenticate("public"))
+	user := app.Group("/v1/user", middleware.Authenticate("public"))
 
 	user.Get("/role/:role", middleware.AuthorizeRole(), controller.GetByRole)
 	user.Put("/:id", middleware.AuthorizeUser(), controller.Update)

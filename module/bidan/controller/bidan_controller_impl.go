@@ -14,7 +14,7 @@ type bidanControllerImpl struct {
 }
 
 func (controller *bidanControllerImpl) Route(app *fiber.App) {
-	bidan := app.Group("/api/bidan", middleware.Authenticate("bidan"))
+	bidan := app.Group("/v1/bidan", middleware.Authenticate("bidan"))
 	bidan.Post("/", controller.Create)
 	bidan.Get("/", controller.GetAll)
 	bidan.Get("/:id", controller.GetByID)

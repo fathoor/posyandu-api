@@ -14,7 +14,7 @@ type pemeriksaanControllerImpl struct {
 }
 
 func (controller *pemeriksaanControllerImpl) Route(app *fiber.App) {
-	pemeriksaan := app.Group("/api/pemeriksaan", middleware.Authenticate("public"))
+	pemeriksaan := app.Group("/v1/pemeriksaan", middleware.Authenticate("public"))
 	pemeriksaan.Post("/", middleware.Authenticate("bidan"), controller.Create)
 	pemeriksaan.Get("/", middleware.Authenticate("bidan"), controller.GetAll)
 	pemeriksaan.Get("/remaja/:id", middleware.AuthorizeUser(), controller.GetAllByRemajaID)
