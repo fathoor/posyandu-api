@@ -5,6 +5,9 @@ import (
 	bidanController "github.com/itsLeonB/posyandu-api/module/bidan/controller"
 	bidanRepository "github.com/itsLeonB/posyandu-api/module/bidan/repository"
 	bidanService "github.com/itsLeonB/posyandu-api/module/bidan/service"
+	chatController "github.com/itsLeonB/posyandu-api/module/chat/controller"
+	chatRepository "github.com/itsLeonB/posyandu-api/module/chat/repository"
+	chatService "github.com/itsLeonB/posyandu-api/module/chat/service"
 	fileController "github.com/itsLeonB/posyandu-api/module/file/controller"
 	fileService "github.com/itsLeonB/posyandu-api/module/file/service"
 	homeController "github.com/itsLeonB/posyandu-api/module/home/controller"
@@ -45,6 +48,7 @@ func ProvideModule(app *fiber.App, db *gorm.DB) {
 	ProvidePemeriksaan(app, db)
 	ProvideFile(app)
 	ProvideHome(app, db)
+	ProvideChat(app, db)
 }
 
 func ProvideStatic(app *fiber.App) {
@@ -148,6 +152,15 @@ func ProvideHome(app *fiber.App, db *gorm.DB) {
 	jadwalPenyuluhanRepo := jadwalPenyuluhanRepository.ProvideJadwalPenyuluhanRepository(db)
 	service := homeService.ProvideHomeService(&userRepo, &bidanRepo, &remajaRepo, &pengampuRepo, &posyanduRepo, &pemeriksaanRepo, &jadwalPosyanduRepo, &jadwalPenyuluhanRepo)
 	controller := homeController.ProvideHomeController(&service)
+
+	controller.Route(app)
+}
+
+func ProvideChat(app *fiber.App, db *gorm.DB) {
+	chatRepo := chatRepository.ProvideChatRepository(db)
+	userRepo := userRepository.ProvideUserRepository(db)
+	service := chatService.ProvideChatService(&chatRepo, &userRepo)
+	controller := chatController.ProvideChatController(&service)
 
 	controller.Route(app)
 }
