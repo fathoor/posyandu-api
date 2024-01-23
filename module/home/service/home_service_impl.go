@@ -166,12 +166,17 @@ func (service *homeServiceImpl) GetBidan(id int) (model.BidanHomeResponse, error
 	}
 
 	response := model.BidanHomeResponse{
-		User: model.HomeUserResponse{
-			ID:           user.ID,
-			Nama:         user.Nama,
-			NIK:          user.NIK,
-			TanggalLahir: user.TanggalLahir.Format("2006-01-02"),
-			Foto:         user.Foto,
+		Bidan: model.HomeBidanResponse{
+			ID: bidan.ID,
+			User: model.HomeUserResponse{
+				ID:           user.ID,
+				Nama:         user.Nama,
+				NIK:          user.NIK,
+				TanggalLahir: user.TanggalLahir.Format("2006-01-02"),
+				Foto:         user.Foto,
+				Role:         user.Role,
+			},
+			Jabatan: bidan.Jabatan,
 		},
 		Posyandu: model.HomePosyanduResponse{
 			ID:     posyandu.ID,

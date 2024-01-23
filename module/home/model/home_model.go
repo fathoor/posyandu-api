@@ -16,6 +16,12 @@ type HomeUserResponse struct {
 	Role         string `json:"role"`
 }
 
+type HomeBidanResponse struct {
+	ID      int              `json:"id"`
+	User    HomeUserResponse `json:"user"`
+	Jabatan string           `json:"jabatan"`
+}
+
 type HomeRemajaResponse struct {
 	ID       int                  `json:"id"`
 	Posyandu HomePosyanduResponse `json:"posyandu"`
@@ -58,7 +64,7 @@ type HomeJadwalPenyuluhanResponse struct {
 }
 
 type BidanHomeResponse struct {
-	User             HomeUserResponse               `json:"user"`
+	Bidan            HomeBidanResponse              `json:"bidan"`
 	Posyandu         HomePosyanduResponse           `json:"posyandu"`
 	Pemeriksaan      []HomePemeriksaanResponse      `json:"pemeriksaan"`
 	JadwalPosyandu   []HomeJadwalPosyanduResponse   `json:"jadwal_posyandu"`
