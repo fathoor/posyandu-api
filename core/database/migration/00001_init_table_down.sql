@@ -1,3 +1,7 @@
+-- Chat
+DROP TABLE IF EXISTS chat;
+DROP TABLE IF EXISTS room;
+
 -- Pemeriksaan
 DROP TABLE IF EXISTS pemeriksaan;
 
