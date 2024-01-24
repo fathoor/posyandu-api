@@ -53,7 +53,7 @@ func (service *homeServiceImpl) GetBidan(id int) (model.BidanHomeResponse, error
 		})
 	}
 
-	pemeriksaan, err := service.pemeriksaanRepo.FindAll()
+	pemeriksaan, err := service.pemeriksaanRepo.FindAllByPosyanduID(posyandu.ID)
 	exception.PanicIfNeeded(err)
 
 	pemeriksaanResponse := make([]model.HomePemeriksaanResponse, len(pemeriksaan))
