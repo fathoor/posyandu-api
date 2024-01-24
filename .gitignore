@@ -1,8 +1,9 @@
 # Environment variables
 .env
 
-# Storage files
-storage/*
+# Storage image files
+storage/image/*
+!storage/image/.gitkeep
 
 # Keep empty directories
 !.gitkeep
@@ -12,6 +13,7 @@ storage/*
 
 # Seed
 core/database/seed/*
+!core/database/seed/.gitkeep
 
 # Static
 public/*
