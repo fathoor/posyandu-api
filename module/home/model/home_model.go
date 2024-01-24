@@ -72,7 +72,7 @@ type BidanHomeResponse struct {
 }
 
 type HomeResponse struct {
-	User             HomeUserResponse               `json:"user"`
+	Remaja           HomeRemajaResponse             `json:"remaja"`
 	JadwalPosyandu   []HomeJadwalPosyanduResponse   `json:"jadwal_posyandu"`
 	JadwalPenyuluhan []HomeJadwalPenyuluhanResponse `json:"jadwal_penyuluhan"`
 }
