@@ -112,7 +112,7 @@ func (service *homeServiceImpl) GetBidan(id int) (model.BidanHomeResponse, error
 		}
 	}
 
-	jadwalPosyandu, err := service.jadwalPosyanduRepo.FindAll()
+	jadwalPosyandu, err := service.jadwalPosyanduRepo.FindByPosyanduID(posyandu.ID)
 	exception.PanicIfNeeded(err)
 
 	jadwalPosyanduResponse := make([]model.HomeJadwalPosyanduResponse, len(jadwalPosyandu))
@@ -137,7 +137,7 @@ func (service *homeServiceImpl) GetBidan(id int) (model.BidanHomeResponse, error
 		}
 	}
 
-	jadwalPenyuluhan, err := service.jadwalPenyluhanRepo.FindAll()
+	jadwalPenyuluhan, err := service.jadwalPenyluhanRepo.FindByPosyanduID(posyandu.ID)
 	exception.PanicIfNeeded(err)
 
 	jadwalPenyuluhanResponse := make([]model.HomeJadwalPenyuluhanResponse, len(jadwalPenyuluhan))
@@ -200,7 +200,14 @@ func (service *homeServiceImpl) Get(id int) (model.HomeResponse, error) {
 		})
 	}
 
-	jadwalPosyandu, err := service.jadwalPosyanduRepo.FindAll()
+	remaja, err := service.remajaRepo.FindByUserID(user.ID)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: "User is not remaja",
+		})
+	}
+
+	jadwalPosyandu, err := service.jadwalPosyanduRepo.FindByPosyanduID(remaja.PosyanduID)
 	exception.PanicIfNeeded(err)
 
 	jadwalPosyanduResponse := make([]model.HomeJadwalPosyanduResponse, len(jadwalPosyandu))
@@ -225,7 +232,7 @@ func (service *homeServiceImpl) Get(id int) (model.HomeResponse, error) {
 		}
 	}
 
-	jadwalPenyuluhan, err := service.jadwalPenyluhanRepo.FindAll()
+	jadwalPenyuluhan, err := service.jadwalPenyluhanRepo.FindByPosyanduID(remaja.PosyanduID)
 	exception.PanicIfNeeded(err)
 
 	jadwalPenyuluhanResponse := make([]model.HomeJadwalPenyuluhanResponse, len(jadwalPenyuluhan))
@@ -254,12 +261,24 @@ func (service *homeServiceImpl) Get(id int) (model.HomeResponse, error) {
 	}
 
 	response := model.HomeResponse{
-		User: model.HomeUserResponse{
-			ID:           user.ID,
-			Nama:         user.Nama,
-			NIK:          user.NIK,
-			TanggalLahir: user.TanggalLahir.Format("2006-01-02"),
-			Foto:         user.Foto,
+		Remaja: model.HomeRemajaResponse{
+			ID: remaja.ID,
+			Posyandu: model.HomePosyanduResponse{
+				ID:     remaja.PosyanduID,
+				Nama:   remaja.Posyandu.Nama,
+				Alamat: remaja.Posyandu.Alamat,
+				Foto:   remaja.Posyandu.Foto,
+			},
+			User: model.HomeUserResponse{
+				ID:           user.ID,
+				Nama:         user.Nama,
+				NIK:          user.NIK,
+				TanggalLahir: user.TanggalLahir.Format("2006-01-02"),
+				Foto:         user.Foto,
+			},
+			NamaAyah: remaja.NamaAyah,
+			NamaIbu:  remaja.NamaIbu,
+			IsKader:  remaja.IsKader,
 		},
 		JadwalPosyandu:   jadwalPosyanduResponse,
 		JadwalPenyuluhan: jadwalPenyuluhanResponse,
