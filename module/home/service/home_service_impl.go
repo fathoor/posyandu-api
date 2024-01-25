@@ -11,6 +11,7 @@ import (
 	posyanduRepository "github.com/itsLeonB/posyandu-api/module/posyandu/repository"
 	remajaRepository "github.com/itsLeonB/posyandu-api/module/remaja/repository"
 	userRepository "github.com/itsLeonB/posyandu-api/module/user/repository"
+	"time"
 )
 
 type homeServiceImpl struct {
@@ -107,7 +108,7 @@ func (service *homeServiceImpl) GetBidan(id int) (model.BidanHomeResponse, error
 			TingkatGlukosa:  pemeriksaan.TingkatGlukosa,
 			KadarHemoglobin: pemeriksaan.KadarHemoglobin,
 			PemberianFe:     pemeriksaan.PemberianFe,
-			WaktuPengukuran: pemeriksaan.WaktuPengukuran.Format("2006-01-02 15:04:05"),
+			WaktuPengukuran: pemeriksaan.WaktuPengukuran.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 			KondisiUmum:     pemeriksaan.KondisiUmum,
 		}
 	}
@@ -132,8 +133,8 @@ func (service *homeServiceImpl) GetBidan(id int) (model.BidanHomeResponse, error
 				Alamat: posyandu.Alamat,
 				Foto:   posyandu.Foto,
 			},
-			WaktuMulai:   jadwalPosyandu.WaktuMulai.Format("2006-01-02 15:04:05"),
-			WaktuSelesai: jadwalPosyandu.WaktuSelesai.Format("2006-01-02 15:04:05"),
+			WaktuMulai:   jadwalPosyandu.WaktuMulai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
+			WaktuSelesai: jadwalPosyandu.WaktuSelesai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 		}
 	}
 
@@ -157,8 +158,8 @@ func (service *homeServiceImpl) GetBidan(id int) (model.BidanHomeResponse, error
 				Alamat: posyandu.Alamat,
 				Foto:   posyandu.Foto,
 			},
-			WaktuMulai:   jadwalPenyuluhan.WaktuMulai.Format("2006-01-02 15:04:05"),
-			WaktuSelesai: jadwalPenyuluhan.WaktuSelesai.Format("2006-01-02 15:04:05"),
+			WaktuMulai:   jadwalPenyuluhan.WaktuMulai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
+			WaktuSelesai: jadwalPenyuluhan.WaktuSelesai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 			Title:        jadwalPenyuluhan.Title,
 			Materi:       jadwalPenyuluhan.Materi,
 			Feedback:     jadwalPenyuluhan.Feedback,
@@ -227,8 +228,8 @@ func (service *homeServiceImpl) Get(id int) (model.HomeResponse, error) {
 				Alamat: posyandu.Alamat,
 				Foto:   posyandu.Foto,
 			},
-			WaktuMulai:   jadwalPosyandu.WaktuMulai.Format("2006-01-02 15:04:05"),
-			WaktuSelesai: jadwalPosyandu.WaktuSelesai.Format("2006-01-02 15:04:05"),
+			WaktuMulai:   jadwalPosyandu.WaktuMulai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
+			WaktuSelesai: jadwalPosyandu.WaktuSelesai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 		}
 	}
 
@@ -252,8 +253,8 @@ func (service *homeServiceImpl) Get(id int) (model.HomeResponse, error) {
 				Alamat: posyandu.Alamat,
 				Foto:   posyandu.Foto,
 			},
-			WaktuMulai:   jadwalPenyuluhan.WaktuMulai.Format("2006-01-02 15:04:05"),
-			WaktuSelesai: jadwalPenyuluhan.WaktuSelesai.Format("2006-01-02 15:04:05"),
+			WaktuMulai:   jadwalPenyuluhan.WaktuMulai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
+			WaktuSelesai: jadwalPenyuluhan.WaktuSelesai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 			Title:        jadwalPenyuluhan.Title,
 			Materi:       jadwalPenyuluhan.Materi,
 			Feedback:     jadwalPenyuluhan.Feedback,

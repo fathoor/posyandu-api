@@ -7,6 +7,7 @@ import (
 	jadwalPenyuluhanRepository "github.com/itsLeonB/posyandu-api/module/jadwal-penyuluhan/repository"
 	"github.com/itsLeonB/posyandu-api/module/jadwal-penyuluhan/validation"
 	posyanduRepository "github.com/itsLeonB/posyandu-api/module/posyandu/repository"
+	"time"
 )
 
 type jadwalPenyuluhanServiceImpl struct {
@@ -80,8 +81,8 @@ func (service *jadwalPenyuluhanServiceImpl) GetAll() ([]model.JadwalPenyuluhanRe
 				Alamat: posyandu.Alamat,
 				Foto:   posyandu.Foto,
 			},
-			WaktuMulai:   jadwalPenyuluhan.WaktuMulai.Format("2006-01-02 15:04:05"),
-			WaktuSelesai: jadwalPenyuluhan.WaktuSelesai.Format("2006-01-02 15:04:05"),
+			WaktuMulai:   jadwalPenyuluhan.WaktuMulai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
+			WaktuSelesai: jadwalPenyuluhan.WaktuSelesai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 			Title:        jadwalPenyuluhan.Title,
 			Materi:       jadwalPenyuluhan.Materi,
 			Feedback:     jadwalPenyuluhan.Feedback,
@@ -112,8 +113,8 @@ func (service *jadwalPenyuluhanServiceImpl) GetByPosyanduID(id int) ([]model.Jad
 				Alamat: posyandu.Alamat,
 				Foto:   posyandu.Foto,
 			},
-			WaktuMulai:   jadwalPenyuluhan.WaktuMulai.Format("2006-01-02 15:04:05"),
-			WaktuSelesai: jadwalPenyuluhan.WaktuSelesai.Format("2006-01-02 15:04:05"),
+			WaktuMulai:   jadwalPenyuluhan.WaktuMulai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
+			WaktuSelesai: jadwalPenyuluhan.WaktuSelesai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 			Title:        jadwalPenyuluhan.Title,
 			Materi:       jadwalPenyuluhan.Materi,
 			Feedback:     jadwalPenyuluhan.Feedback,
@@ -146,8 +147,8 @@ func (service *jadwalPenyuluhanServiceImpl) GetByID(id int) (model.JadwalPenyulu
 			Alamat: posyandu.Alamat,
 			Foto:   posyandu.Foto,
 		},
-		WaktuMulai:   jadwalPenyuluhan.WaktuMulai.Format("2006-01-02 15:04:05"),
-		WaktuSelesai: jadwalPenyuluhan.WaktuSelesai.Format("2006-01-02 15:04:05"),
+		WaktuMulai:   jadwalPenyuluhan.WaktuMulai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
+		WaktuSelesai: jadwalPenyuluhan.WaktuSelesai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 		Title:        jadwalPenyuluhan.Title,
 		Materi:       jadwalPenyuluhan.Materi,
 		Feedback:     jadwalPenyuluhan.Feedback,
@@ -198,8 +199,8 @@ func (service *jadwalPenyuluhanServiceImpl) Update(id int, request *model.Jadwal
 			Alamat: posyandu.Alamat,
 			Foto:   posyandu.Foto,
 		},
-		WaktuMulai:   jadwalPenyuluhan.WaktuMulai.Format("2006-01-02 15:04:05"),
-		WaktuSelesai: jadwalPenyuluhan.WaktuSelesai.Format("2006-01-02 15:04:05"),
+		WaktuMulai:   jadwalPenyuluhan.WaktuMulai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
+		WaktuSelesai: jadwalPenyuluhan.WaktuSelesai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 		Title:        jadwalPenyuluhan.Title,
 		Materi:       jadwalPenyuluhan.Materi,
 		Feedback:     jadwalPenyuluhan.Feedback,

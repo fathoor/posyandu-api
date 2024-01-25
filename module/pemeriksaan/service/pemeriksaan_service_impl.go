@@ -9,6 +9,7 @@ import (
 	posyanduRepository "github.com/itsLeonB/posyandu-api/module/posyandu/repository"
 	remajaRepository "github.com/itsLeonB/posyandu-api/module/remaja/repository"
 	userRepository "github.com/itsLeonB/posyandu-api/module/user/repository"
+	"time"
 )
 
 type pemeriksaanServiceImpl struct {
@@ -172,7 +173,7 @@ func (service *pemeriksaanServiceImpl) GetAll() ([]model.PemeriksaanResponse, er
 			TingkatGlukosa:  pemeriksaan.TingkatGlukosa,
 			KadarHemoglobin: pemeriksaan.KadarHemoglobin,
 			PemberianFe:     pemeriksaan.PemberianFe,
-			WaktuPengukuran: pemeriksaan.WaktuPengukuran.Format("2006-01-02 15:04:05"),
+			WaktuPengukuran: pemeriksaan.WaktuPengukuran.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 			KondisiUmum:     pemeriksaan.KondisiUmum,
 		}
 	}
@@ -250,7 +251,7 @@ func (service *pemeriksaanServiceImpl) GetAllByRemajaID(id int) ([]model.Pemerik
 			TingkatGlukosa:  pemeriksaan.TingkatGlukosa,
 			KadarHemoglobin: pemeriksaan.KadarHemoglobin,
 			PemberianFe:     pemeriksaan.PemberianFe,
-			WaktuPengukuran: pemeriksaan.WaktuPengukuran.Format("2006-01-02 15:04:05"),
+			WaktuPengukuran: pemeriksaan.WaktuPengukuran.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 			KondisiUmum:     pemeriksaan.KondisiUmum,
 		}
 	}
@@ -323,7 +324,7 @@ func (service *pemeriksaanServiceImpl) GetByID(id int) (model.PemeriksaanRespons
 		TingkatGlukosa:  pemeriksaan.TingkatGlukosa,
 		KadarHemoglobin: pemeriksaan.KadarHemoglobin,
 		PemberianFe:     pemeriksaan.PemberianFe,
-		WaktuPengukuran: pemeriksaan.WaktuPengukuran.Format("2006-01-02 15:04:05"),
+		WaktuPengukuran: pemeriksaan.WaktuPengukuran.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 		KondisiUmum:     pemeriksaan.KondisiUmum,
 	}
 
@@ -419,7 +420,7 @@ func (service *pemeriksaanServiceImpl) Update(id int, request *model.Pemeriksaan
 		TingkatGlukosa:  pemeriksaan.TingkatGlukosa,
 		KadarHemoglobin: pemeriksaan.KadarHemoglobin,
 		PemberianFe:     pemeriksaan.PemberianFe,
-		WaktuPengukuran: pemeriksaan.WaktuPengukuran.Format("2006-01-02 15:04:05"),
+		WaktuPengukuran: pemeriksaan.WaktuPengukuran.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 		KondisiUmum:     pemeriksaan.KondisiUmum,
 	}
 
