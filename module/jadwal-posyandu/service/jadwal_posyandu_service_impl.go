@@ -7,6 +7,7 @@ import (
 	jadwalPosyanduRepository "github.com/itsLeonB/posyandu-api/module/jadwal-posyandu/repository"
 	"github.com/itsLeonB/posyandu-api/module/jadwal-posyandu/validation"
 	posyanduRepository "github.com/itsLeonB/posyandu-api/module/posyandu/repository"
+	"time"
 )
 
 type jadwalPosyanduServiceImpl struct {
@@ -74,8 +75,8 @@ func (service *jadwalPosyanduServiceImpl) GetAll() ([]model.JadwalPosyanduRespon
 				Alamat: posyandu.Alamat,
 				Foto:   posyandu.Foto,
 			},
-			WaktuMulai:   jadwalPosyandu.WaktuMulai.Format("2006-01-02 15:04:05"),
-			WaktuSelesai: jadwalPosyandu.WaktuSelesai.Format("2006-01-02 15:04:05"),
+			WaktuMulai:   jadwalPosyandu.WaktuMulai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
+			WaktuSelesai: jadwalPosyandu.WaktuSelesai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 		}
 	}
 
@@ -103,8 +104,8 @@ func (service *jadwalPosyanduServiceImpl) GetByPosyanduID(posyanduID int) ([]mod
 				Alamat: posyandu.Alamat,
 				Foto:   posyandu.Foto,
 			},
-			WaktuMulai:   jadwalPosyandu.WaktuMulai.Format("2006-01-02 15:04:05"),
-			WaktuSelesai: jadwalPosyandu.WaktuSelesai.Format("2006-01-02 15:04:05"),
+			WaktuMulai:   jadwalPosyandu.WaktuMulai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
+			WaktuSelesai: jadwalPosyandu.WaktuSelesai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 		}
 	}
 
@@ -134,8 +135,8 @@ func (service *jadwalPosyanduServiceImpl) GetByID(id int) (model.JadwalPosyanduR
 			Alamat: posyandu.Alamat,
 			Foto:   posyandu.Foto,
 		},
-		WaktuMulai:   jadwalPosyandu.WaktuMulai.Format("2006-01-02 15:04:05"),
-		WaktuSelesai: jadwalPosyandu.WaktuSelesai.Format("2006-01-02 15:04:05"),
+		WaktuMulai:   jadwalPosyandu.WaktuMulai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
+		WaktuSelesai: jadwalPosyandu.WaktuSelesai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 	}
 
 	return response, nil
@@ -180,8 +181,8 @@ func (service *jadwalPosyanduServiceImpl) Update(id int, request *model.JadwalPo
 			Alamat: posyandu.Alamat,
 			Foto:   posyandu.Foto,
 		},
-		WaktuMulai:   jadwalPosyandu.WaktuMulai.Format("2006-01-02 15:04:05"),
-		WaktuSelesai: jadwalPosyandu.WaktuSelesai.Format("2006-01-02 15:04:05"),
+		WaktuMulai:   jadwalPosyandu.WaktuMulai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
+		WaktuSelesai: jadwalPosyandu.WaktuSelesai.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 	}
 
 	return response, nil
