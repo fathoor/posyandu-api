@@ -110,6 +110,7 @@ func (service *homeServiceImpl) GetBidan(id int) (model.BidanHomeResponse, error
 			PemberianFe:     pemeriksaan.PemberianFe,
 			WaktuPengukuran: pemeriksaan.WaktuPengukuran.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 			KondisiUmum:     pemeriksaan.KondisiUmum,
+			Keterangan:      pemeriksaan.Keterangan,
 		}
 	}
 
