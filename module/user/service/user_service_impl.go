@@ -55,6 +55,12 @@ func (service *userServiceImpl) Register(request *model.UserRegisterRequest) (mo
 		})
 	}
 
+	if request.Role == "admin" {
+		panic(exception.ForbiddenError{
+			Message: "Forbidden to register admin",
+		})
+	}
+
 	encrypted, err := helper.EncryptPassword(request.Password)
 	exception.PanicIfNeeded(err)
 

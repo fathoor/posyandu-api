@@ -16,18 +16,14 @@ type userControllerImpl struct {
 func (controller *userControllerImpl) Route(app *fiber.App) {
 	auth := app.Group("/v1/auth")
 	auth.Post("/login", controller.Login)
-	auth.Post("/forget-password", controller.ForgetPassword)
 
 	user := app.Group("/v1/user", middleware.Authenticate("public"))
-
-	user.Get("/role/:role", middleware.AuthorizeRole(), controller.GetByRole)
-	user.Put("/:id", middleware.AuthorizeUser(), controller.Update)
-	user.Put("/:id/auth", middleware.AuthorizeUser(), controller.UpdateAuth)
-	user.Get("/:id", middleware.AuthorizeUser(), controller.GetByID)
-
 	user.Post("/register", middleware.Authenticate("bidan"), controller.Register)
 	user.Get("/", middleware.Authenticate("bidan"), controller.GetAll)
-	user.Get("/:id", middleware.Authenticate("bidan"), controller.GetByID)
+	user.Get("/role/:role", middleware.AuthorizeRole(), controller.GetByRole)
+	user.Get("/:id", middleware.AuthorizeAdminOrBidan(), controller.GetByID)
+	user.Put("/:id", middleware.AuthorizeAdminOrBidan(), controller.Update)
+	user.Put("/:id/auth", middleware.AuthorizeUser(), controller.UpdateAuth)
 	user.Delete("/:id", middleware.Authenticate("bidan"), controller.Delete)
 }
 
@@ -45,11 +41,6 @@ func (controller *userControllerImpl) Login(ctx *fiber.Ctx) error {
 		Status: "OK",
 		Data:   response,
 	})
-}
-
-func (controller *userControllerImpl) ForgetPassword(ctx *fiber.Ctx) error {
-	//TODO implement me
-	panic("implement me")
 }
 
 func (controller *userControllerImpl) Register(ctx *fiber.Ctx) error {
