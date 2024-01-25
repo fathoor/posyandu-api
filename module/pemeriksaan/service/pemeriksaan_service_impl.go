@@ -183,7 +183,7 @@ func (service *pemeriksaanServiceImpl) GetAll() ([]model.PemeriksaanResponse, er
 	return response, nil
 }
 
-func (service *pemeriksaanServiceImpl) GetAllByRemajaID(id int) ([]model.PemeriksaanResponse, error) {
+func (service *pemeriksaanServiceImpl) GetByRemajaUserID(id int) ([]model.PemeriksaanResponse, error) {
 	remaja, err := service.remajaRepo.FindByUserID(id)
 	if err != nil {
 		panic(exception.NotFoundError{

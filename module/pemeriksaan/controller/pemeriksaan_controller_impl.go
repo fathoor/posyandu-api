@@ -17,7 +17,7 @@ func (controller *pemeriksaanControllerImpl) Route(app *fiber.App) {
 	pemeriksaan := app.Group("/v1/pemeriksaan", middleware.Authenticate("public"))
 	pemeriksaan.Post("/", middleware.Authenticate("bidan"), controller.Create)
 	pemeriksaan.Get("/", middleware.Authenticate("bidan"), controller.GetAll)
-	pemeriksaan.Get("/remaja/:id", middleware.AuthorizeUser(), controller.GetAllByRemajaID)
+	pemeriksaan.Get("/remaja/:id", middleware.AuthorizeAdminOrBidan(), controller.GetByRemajaUserID)
 	pemeriksaan.Get("/:id", controller.GetByID)
 	pemeriksaan.Put("/:id", middleware.Authenticate("bidan"), controller.Update)
 	pemeriksaan.Delete("/:id", middleware.Authenticate("bidan"), controller.Delete)
@@ -50,7 +50,7 @@ func (controller *pemeriksaanControllerImpl) GetAll(ctx *fiber.Ctx) error {
 	})
 }
 
-func (controller *pemeriksaanControllerImpl) GetAllByRemajaID(ctx *fiber.Ctx) error {
+func (controller *pemeriksaanControllerImpl) GetByRemajaUserID(ctx *fiber.Ctx) error {
 	id, err := ctx.ParamsInt("id")
 	if err != nil {
 		panic(exception.BadRequestError{
@@ -58,7 +58,7 @@ func (controller *pemeriksaanControllerImpl) GetAllByRemajaID(ctx *fiber.Ctx) er
 		})
 	}
 
-	response, err := controller.PemeriksaanService.GetAllByRemajaID(id)
+	response, err := controller.PemeriksaanService.GetByRemajaUserID(id)
 	exception.PanicIfNeeded(err)
 
 	return ctx.Status(fiber.StatusOK).JSON(web.Response{
