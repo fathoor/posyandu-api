@@ -103,8 +103,9 @@ func (service *pemeriksaanServiceImpl) Create(request *model.PemeriksaanCreateRe
 		TingkatGlukosa:  pemeriksaan.TingkatGlukosa,
 		KadarHemoglobin: pemeriksaan.KadarHemoglobin,
 		PemberianFe:     pemeriksaan.PemberianFe,
-		WaktuPengukuran: pemeriksaan.WaktuPengukuran.Format("2006-01-02 15:04:05"),
+		WaktuPengukuran: pemeriksaan.WaktuPengukuran.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 		KondisiUmum:     pemeriksaan.KondisiUmum,
+		Keterangan:      pemeriksaan.Keterangan,
 	}
 
 	return response, nil
@@ -175,6 +176,7 @@ func (service *pemeriksaanServiceImpl) GetAll() ([]model.PemeriksaanResponse, er
 			PemberianFe:     pemeriksaan.PemberianFe,
 			WaktuPengukuran: pemeriksaan.WaktuPengukuran.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 			KondisiUmum:     pemeriksaan.KondisiUmum,
+			Keterangan:      pemeriksaan.Keterangan,
 		}
 	}
 
@@ -253,6 +255,7 @@ func (service *pemeriksaanServiceImpl) GetAllByRemajaID(id int) ([]model.Pemerik
 			PemberianFe:     pemeriksaan.PemberianFe,
 			WaktuPengukuran: pemeriksaan.WaktuPengukuran.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 			KondisiUmum:     pemeriksaan.KondisiUmum,
+			Keterangan:      pemeriksaan.Keterangan,
 		}
 	}
 
@@ -326,6 +329,7 @@ func (service *pemeriksaanServiceImpl) GetByID(id int) (model.PemeriksaanRespons
 		PemberianFe:     pemeriksaan.PemberianFe,
 		WaktuPengukuran: pemeriksaan.WaktuPengukuran.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 		KondisiUmum:     pemeriksaan.KondisiUmum,
+		Keterangan:      pemeriksaan.Keterangan,
 	}
 
 	return response, nil
@@ -422,6 +426,7 @@ func (service *pemeriksaanServiceImpl) Update(id int, request *model.Pemeriksaan
 		PemberianFe:     pemeriksaan.PemberianFe,
 		WaktuPengukuran: pemeriksaan.WaktuPengukuran.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
 		KondisiUmum:     pemeriksaan.KondisiUmum,
+		Keterangan:      pemeriksaan.Keterangan,
 	}
 
 	return response, nil
