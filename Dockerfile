@@ -8,7 +8,7 @@ COPY . .
 
 RUN go mod tidy
 
-RUN go build -o posyandu-api
+RUN CGO_ENABLED=0 GOOS=linux go build -o posyandu-api
 
 EXPOSE ${APP_PORT}
 

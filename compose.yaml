@@ -1,32 +1,32 @@
 services:
   posyandu:
     container_name: posyandu
-    build: .
-    ports:
-      - ${APP_PORT}:${APP_PORT}
-    volumes:
-      - posyandu:/usr/src/app
     depends_on:
       - posyandu-db
+    image: mfathoor/posyandu-api:latest
     networks:
       - posyandu
-    restart: always
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    restart: on-failure
+    volumes:
+      - posyandu:/usr/src/app
 
   posyandu-db:
-    container_name: posyandu-db
-    image: mysql:5.7
+    container_name: posyandu_mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
-    ports:
-      - ${DB_PORT}:${DB_PORT}
-    volumes:
-      - posyandu-db:/var/lib/mysql
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+    image: mysql:5.7
     networks:
       - posyandu
-    restart: always
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    restart: on-failure
+    volumes:
+      - posyandu-db:/var/lib/mysql
 
 volumes:
     posyandu:
