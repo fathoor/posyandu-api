@@ -17,7 +17,6 @@ func (controller *remajaControllerImpl) Route(app *fiber.App) {
 	bidan := app.Group("/v1/remaja", middleware.Authenticate("bidan"))
 	bidan.Post("/", controller.Create)
 	bidan.Get("/", controller.GetAll)
-	bidan.Get("/posyandu/:id", controller.GetByPosyanduID)
 	bidan.Get("/:id", controller.GetByID)
 	bidan.Put("/:id", controller.UpdateKader)
 	bidan.Delete("/:id", controller.Delete)
@@ -27,6 +26,9 @@ func (controller *remajaControllerImpl) Route(app *fiber.App) {
 	kader.Get("/", controller.GetAll)
 	kader.Get("/:id", controller.GetByID)
 	kader.Put("/:id", controller.Update)
+
+	remaja := app.Group("/v1/remaja", middleware.Authenticate("public"))
+	remaja.Get("/posyandu/:id", controller.GetByPosyanduID)
 }
 
 func (controller *remajaControllerImpl) Create(ctx *fiber.Ctx) error {
