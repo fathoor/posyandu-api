@@ -22,7 +22,7 @@ func (controller *remajaControllerImpl) Route(app *fiber.App) {
 	bidan.Put("/:id", controller.UpdateKader)
 	bidan.Delete("/:id", controller.Delete)
 
-	kader := app.Group("/v1/remaja", middleware.Authenticate("kader"))
+	kader := app.Group("/v1/kader/remaja", middleware.Authenticate("kader"))
 	kader.Post("/", controller.Create)
 	kader.Get("/", controller.GetAll)
 	kader.Get("/:id", controller.GetByID)

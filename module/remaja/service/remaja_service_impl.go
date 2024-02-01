@@ -349,6 +349,15 @@ func (service *remajaServiceImpl) UpdateKader(id int, request *model.RemajaUpdat
 		})
 	}
 
+	if remaja.IsKader {
+		user.Role = "kader"
+	} else {
+		user.Role = "remaja"
+	}
+
+	err = service.userRepo.Save(&user)
+	exception.PanicIfNeeded(err)
+
 	err = service.remajaRepo.Save(&remaja)
 	exception.PanicIfNeeded(err)
 
