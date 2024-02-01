@@ -211,6 +211,13 @@ func (service *homeServiceImpl) Get(id int) (model.HomeResponse, error) {
 		})
 	}
 
+	posyandu, err := service.posyanduRepo.FindByID(remaja.PosyanduID)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: "Posyandu not found",
+		})
+	}
+
 	jadwalPosyandu, err := service.jadwalPosyanduRepo.FindByPosyanduID(remaja.PosyanduID)
 	exception.PanicIfNeeded(err)
 
@@ -268,10 +275,10 @@ func (service *homeServiceImpl) Get(id int) (model.HomeResponse, error) {
 		Remaja: model.HomeRemajaResponse{
 			ID: remaja.ID,
 			Posyandu: model.HomePosyanduResponse{
-				ID:     remaja.PosyanduID,
-				Nama:   remaja.Posyandu.Nama,
-				Alamat: remaja.Posyandu.Alamat,
-				Foto:   remaja.Posyandu.Foto,
+				ID:     posyandu.ID,
+				Nama:   posyandu.Nama,
+				Alamat: posyandu.Alamat,
+				Foto:   posyandu.Foto,
 			},
 			User: model.HomeUserResponse{
 				ID:           user.ID,
