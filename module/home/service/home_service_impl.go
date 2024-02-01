@@ -104,6 +104,8 @@ func (service *homeServiceImpl) GetBidan(id int) (model.BidanHomeResponse, error
 			},
 			BeratBadan:      pemeriksaan.BeratBadan,
 			TinggiBadan:     pemeriksaan.TinggiBadan,
+			Sistole:         pemeriksaan.Sistole,
+			Diastole:        pemeriksaan.Diastole,
 			LingkarLengan:   pemeriksaan.LingkarLengan,
 			TingkatGlukosa:  pemeriksaan.TingkatGlukosa,
 			KadarHemoglobin: pemeriksaan.KadarHemoglobin,
