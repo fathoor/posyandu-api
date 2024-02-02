@@ -14,12 +14,13 @@ type remajaControllerImpl struct {
 }
 
 func (controller *remajaControllerImpl) Route(app *fiber.App) {
-	bidan := app.Group("/v1/remaja", middleware.Authenticate("bidan"))
-	bidan.Post("/", controller.Create)
-	bidan.Get("/", controller.GetAll)
-	bidan.Get("/:id", controller.GetByID)
-	bidan.Put("/:id", controller.UpdateKader)
-	bidan.Delete("/:id", controller.Delete)
+	remaja := app.Group("/v1/remaja")
+	remaja.Post("/", middleware.Authenticate("bidan"), controller.Create)
+	remaja.Get("/", middleware.Authenticate("bidan"), controller.GetAll)
+	remaja.Get("/posyandu/:id", middleware.Authenticate("public"), controller.GetByPosyanduID)
+	remaja.Get("/:id", middleware.Authenticate("bidan"), controller.GetByID)
+	remaja.Put("/:id", middleware.Authenticate("bidan"), controller.UpdateKader)
+	remaja.Delete("/:id", middleware.Authenticate("bidan"), controller.Delete)
 
 	kader := app.Group("/v1/kader")
 	kader.Get("/", middleware.Authenticate("public"), controller.GetAllKader)
@@ -27,9 +28,6 @@ func (controller *remajaControllerImpl) Route(app *fiber.App) {
 	kader.Get("/remaja", middleware.Authenticate("kader"), controller.GetAll)
 	kader.Get("/remaja/:id", middleware.Authenticate("kader"), controller.GetByID)
 	kader.Put("/remaja/:id", middleware.Authenticate("kader"), controller.Update)
-
-	remaja := app.Group("/v1/remaja", middleware.Authenticate("public"))
-	remaja.Get("/posyandu/:id", controller.GetByPosyanduID)
 }
 
 func (controller *remajaControllerImpl) Create(ctx *fiber.Ctx) error {
