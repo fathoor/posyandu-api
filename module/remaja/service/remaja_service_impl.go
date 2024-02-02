@@ -120,6 +120,51 @@ func (service *remajaServiceImpl) GetAll() ([]model.RemajaResponse, error) {
 	return response, nil
 }
 
+func (service *remajaServiceImpl) GetAllKader() ([]model.RemajaResponse, error) {
+	remaja, err := service.remajaRepo.FindAllKader()
+	exception.PanicIfNeeded(err)
+
+	response := make([]model.RemajaResponse, len(remaja))
+	for i, remaja := range remaja {
+		posyandu, err := service.posyanduRepo.FindByID(remaja.PosyanduID)
+		if err != nil {
+			panic(exception.NotFoundError{
+				Message: "Posyandu not found",
+			})
+		}
+
+		user, err := service.userRepo.FindByID(remaja.UserID)
+		if err != nil {
+			panic(exception.NotFoundError{
+				Message: "User not found",
+			})
+		}
+
+		response[i] = model.RemajaResponse{
+			ID: remaja.ID,
+			Posyandu: model.RemajaPosyanduResponse{
+				ID:     posyandu.ID,
+				Nama:   posyandu.Nama,
+				Alamat: posyandu.Alamat,
+				Foto:   posyandu.Foto,
+			},
+			User: model.RemajaUserResponse{
+				ID:           user.ID,
+				Nama:         user.Nama,
+				NIK:          user.NIK,
+				TanggalLahir: user.TanggalLahir.Format("2006-01-02"),
+				Foto:         user.Foto,
+				Role:         user.Role,
+			},
+			NamaAyah: remaja.NamaAyah,
+			NamaIbu:  remaja.NamaIbu,
+			IsKader:  remaja.IsKader,
+		}
+	}
+
+	return response, nil
+}
+
 func (service *remajaServiceImpl) GetByPosyanduID(id int) ([]model.RemajaPemeriksaanResponse, error) {
 	remaja, err := service.remajaRepo.FindByPosyanduID(id)
 	exception.PanicIfNeeded(err)
