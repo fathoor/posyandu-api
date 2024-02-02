@@ -21,12 +21,12 @@ func (controller *remajaControllerImpl) Route(app *fiber.App) {
 	bidan.Put("/:id", controller.UpdateKader)
 	bidan.Delete("/:id", controller.Delete)
 
-	kader := app.Group("/v1/kader", middleware.Authenticate("kader"))
-	kader.Post("/remaja", controller.Create)
-	kader.Get("/remaja", controller.GetAll)
-	kader.Get("/", controller.GetAllKader)
-	kader.Get("/remaja/:id", controller.GetByID)
-	kader.Put("/remaja/:id", controller.Update)
+	kader := app.Group("/v1/kader")
+	kader.Get("/", middleware.Authenticate("public"), controller.GetAllKader)
+	kader.Post("/remaja", middleware.Authenticate("kader"), controller.Create)
+	kader.Get("/remaja", middleware.Authenticate("kader"), controller.GetAll)
+	kader.Get("/remaja/:id", middleware.Authenticate("kader"), controller.GetByID)
+	kader.Put("/remaja/:id", middleware.Authenticate("kader"), controller.Update)
 
 	remaja := app.Group("/v1/remaja", middleware.Authenticate("public"))
 	remaja.Get("/posyandu/:id", controller.GetByPosyanduID)
