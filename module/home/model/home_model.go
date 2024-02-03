@@ -22,6 +22,10 @@ type HomeBidanResponse struct {
 	Jabatan string           `json:"jabatan"`
 }
 
+type HomePengampuResponse struct {
+	Bidan HomeBidanResponse `json:"bidan"`
+}
+
 type HomeRemajaResponse struct {
 	ID       int                  `json:"id"`
 	Posyandu HomePosyanduResponse `json:"posyandu"`
@@ -73,6 +77,7 @@ type BidanHomeResponse struct {
 }
 
 type HomeResponse struct {
+	Pengampu         []HomePengampuResponse         `json:"pengampu"`
 	Remaja           HomeRemajaResponse             `json:"remaja"`
 	JadwalPosyandu   []HomeJadwalPosyanduResponse   `json:"jadwal_posyandu"`
 	JadwalPenyuluhan []HomeJadwalPenyuluhanResponse `json:"jadwal_penyuluhan"`
