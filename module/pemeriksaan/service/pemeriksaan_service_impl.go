@@ -111,6 +111,98 @@ func (service *pemeriksaanServiceImpl) Create(request *model.PemeriksaanCreateRe
 	return response, nil
 }
 
+func (service *pemeriksaanServiceImpl) CreateKader(request *model.PemeriksaanCreateKaderRequest) (model.PemeriksaanResponse, error) {
+	valid := validation.ValidatePemeriksaanCreateKaderRequest(request)
+	if valid != nil {
+		panic(exception.BadRequestError{
+			Message: "Invalid request data",
+		})
+	}
+
+	pemeriksaan := entity.Pemeriksaan{
+		PosyanduID:      request.PosyanduID,
+		RemajaID:        request.RemajaID,
+		BeratBadan:      request.BeratBadan,
+		TinggiBadan:     request.TinggiBadan,
+		Sistole:         request.Sistole,
+		Diastole:        request.Diastole,
+		LingkarLengan:   request.LingkarLengan,
+		TingkatGlukosa:  request.TingkatGlukosa,
+		KadarHemoglobin: request.KadarHemoglobin,
+		PemberianFe:     request.PemberianFe,
+		WaktuPengukuran: request.WaktuPengukuran,
+		KondisiUmum:     request.KondisiUmum,
+		Keterangan:      request.Keterangan,
+	}
+
+	remaja, err := service.remajaRepo.FindByID(pemeriksaan.RemajaID)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: "Remaja not found",
+		})
+	}
+
+	posyandu, err := service.posyanduRepo.FindByID(remaja.PosyanduID)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: "Posyandu not found",
+		})
+	}
+
+	user, err := service.userRepo.FindByID(remaja.UserID)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: "User not found",
+		})
+	}
+
+	err = service.pemeriksaanRepo.Insert(&pemeriksaan)
+	exception.PanicIfNeeded(err)
+
+	response := model.PemeriksaanResponse{
+		ID: pemeriksaan.ID,
+		Posyandu: model.PemeriksaanPosyanduResponse{
+			ID:     posyandu.ID,
+			Nama:   posyandu.Nama,
+			Alamat: posyandu.Alamat,
+			Foto:   posyandu.Foto,
+		},
+		Remaja: model.PemeriksaanRemajaResponse{
+			ID: remaja.ID,
+			Posyandu: model.PemeriksaanPosyanduResponse{
+				ID:     posyandu.ID,
+				Nama:   posyandu.Nama,
+				Alamat: posyandu.Alamat,
+				Foto:   posyandu.Foto,
+			},
+			User: model.PemeriksaanUserResponse{
+				ID:           user.ID,
+				Nama:         user.Nama,
+				NIK:          user.NIK,
+				TanggalLahir: user.TanggalLahir.Format("2006-01-02"),
+				Foto:         user.Foto,
+				Role:         user.Role,
+			},
+			NamaAyah: remaja.NamaAyah,
+			NamaIbu:  remaja.NamaIbu,
+			IsKader:  remaja.IsKader,
+		},
+		BeratBadan:      pemeriksaan.BeratBadan,
+		TinggiBadan:     pemeriksaan.TinggiBadan,
+		Sistole:         pemeriksaan.Sistole,
+		Diastole:        pemeriksaan.Diastole,
+		LingkarLengan:   pemeriksaan.LingkarLengan,
+		TingkatGlukosa:  pemeriksaan.TingkatGlukosa,
+		KadarHemoglobin: pemeriksaan.KadarHemoglobin,
+		PemberianFe:     pemeriksaan.PemberianFe,
+		WaktuPengukuran: pemeriksaan.WaktuPengukuran.In(time.FixedZone("WIB", 7*3600)).Format("2006-01-02 15:04:05"),
+		KondisiUmum:     pemeriksaan.KondisiUmum,
+		Keterangan:      pemeriksaan.Keterangan,
+	}
+
+	return response, nil
+}
+
 func (service *pemeriksaanServiceImpl) GetAll() ([]model.PemeriksaanResponse, error) {
 	pemeriksaan, err := service.pemeriksaanRepo.FindAll()
 	exception.PanicIfNeeded(err)

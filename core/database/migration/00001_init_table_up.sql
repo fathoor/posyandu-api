@@ -120,7 +120,7 @@ CREATE TABLE pemeriksaan (
     kadar_hemoglobin DECIMAL,
     pemberian_fe BOOL DEFAULT FALSE,
     waktu_pengukuran DATETIME NOT NULL,
-    kondisi_umum ENUM('baik', 'cukup', 'lemah') NOT NULL,
+    kondisi_umum ENUM('baik', 'cukup', 'lemah', '-') DEFAULT '-',
     keterangan TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
