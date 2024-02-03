@@ -33,6 +33,13 @@ func (repository *pengampuRepositoryImpl) FindByID(id int) ([]entity.Pengampu, e
 	return pengampu, err
 }
 
+func (repository *pengampuRepositoryImpl) FindByActivePosyanduID(id int) ([]entity.Pengampu, error) {
+	var pengampu []entity.Pengampu
+	err := repository.DB.Find(&pengampu, "posyandu_id = ? AND active = ?", id, true).Error
+
+	return pengampu, err
+}
+
 func (repository *pengampuRepositoryImpl) FindByBidanAndPosyanduID(bidanID int, posyanduID int) (entity.Pengampu, error) {
 	var pengampu entity.Pengampu
 	err := repository.DB.Take(&pengampu, "bidan_id = ? AND posyandu_id = ?", bidanID, posyanduID).Error

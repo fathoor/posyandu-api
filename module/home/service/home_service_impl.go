@@ -218,6 +218,40 @@ func (service *homeServiceImpl) Get(id int) (model.HomeResponse, error) {
 		})
 	}
 
+	pengampu, err := service.pengampuRepo.FindByActivePosyanduID(posyandu.ID)
+	exception.PanicIfNeeded(err)
+
+	pengampuResponse := make([]model.HomePengampuResponse, len(pengampu))
+	for i, pengampu := range pengampu {
+		bidan, err := service.bidanRepo.FindByID(pengampu.BidanID)
+		if err != nil {
+			panic(exception.NotFoundError{
+				Message: "Bidan not found",
+			})
+		}
+
+		user, err := service.userRepo.FindByID(bidan.UserID)
+		if err != nil {
+			panic(exception.NotFoundError{
+				Message: "User not found",
+			})
+		}
+
+		pengampuResponse[i] = model.HomePengampuResponse{
+			Bidan: model.HomeBidanResponse{
+				ID: bidan.ID,
+				User: model.HomeUserResponse{
+					ID:           user.ID,
+					Nama:         user.Nama,
+					NIK:          user.NIK,
+					TanggalLahir: user.TanggalLahir.Format("2006-01-02"),
+					Foto:         user.Foto,
+				},
+				Jabatan: bidan.Jabatan,
+			},
+		}
+	}
+
 	jadwalPosyandu, err := service.jadwalPosyanduRepo.FindByPosyanduID(remaja.PosyanduID)
 	exception.PanicIfNeeded(err)
 
@@ -272,6 +306,7 @@ func (service *homeServiceImpl) Get(id int) (model.HomeResponse, error) {
 	}
 
 	response := model.HomeResponse{
+		Pengampu: pengampuResponse,
 		Remaja: model.HomeRemajaResponse{
 			ID: remaja.ID,
 			Posyandu: model.HomePosyanduResponse{
