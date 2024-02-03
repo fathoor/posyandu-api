@@ -9,6 +9,10 @@ func ValidatePemeriksaanCreateRequest(request *model.PemeriksaanCreateRequest) e
 	return validation.Validator.Struct(request)
 }
 
+func ValidatePemeriksaanCreateKaderRequest(request *model.PemeriksaanCreateKaderRequest) error {
+	return validation.Validator.Struct(request)
+}
+
 func ValidatePemeriksaanUpdateRequest(request *model.PemeriksaanUpdateRequest) error {
 	return validation.Validator.Struct(request)
 }

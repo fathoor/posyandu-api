@@ -21,6 +21,9 @@ func (controller *pemeriksaanControllerImpl) Route(app *fiber.App) {
 	pemeriksaan.Get("/:id", controller.GetByID)
 	pemeriksaan.Put("/:id", middleware.Authenticate("bidan"), controller.Update)
 	pemeriksaan.Delete("/:id", middleware.Authenticate("bidan"), controller.Delete)
+
+	kader := app.Group("/v1/kader")
+	kader.Post("/pemeriksaan", middleware.Authenticate("kader"), controller.CreateKader)
 }
 
 func (controller *pemeriksaanControllerImpl) Create(ctx *fiber.Ctx) error {
@@ -30,6 +33,22 @@ func (controller *pemeriksaanControllerImpl) Create(ctx *fiber.Ctx) error {
 	exception.PanicIfNeeded(err)
 
 	response, err := controller.PemeriksaanService.Create(&request)
+	exception.PanicIfNeeded(err)
+
+	return ctx.Status(fiber.StatusCreated).JSON(web.Response{
+		Code:   fiber.StatusCreated,
+		Status: "Created",
+		Data:   response,
+	})
+}
+
+func (controller *pemeriksaanControllerImpl) CreateKader(ctx *fiber.Ctx) error {
+	var request model.PemeriksaanCreateKaderRequest
+
+	err := ctx.BodyParser(&request)
+	exception.PanicIfNeeded(err)
+
+	response, err := controller.PemeriksaanService.CreateKader(&request)
 	exception.PanicIfNeeded(err)
 
 	return ctx.Status(fiber.StatusCreated).JSON(web.Response{
