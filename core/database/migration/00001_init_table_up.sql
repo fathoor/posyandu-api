@@ -128,6 +128,11 @@ CREATE TABLE pemeriksaan (
     FOREIGN KEY (remaja_id) REFERENCES remaja(id) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
+CREATE TABLE pemeriksaan_threshold (
+    parameter ENUM('berat_badan', 'tinggi_badan', 'sistole', 'diastole', 'lingkar_lengan', 'tingkat_glukosa', 'kadar_hemoglobin') PRIMARY KEY,
+    threshold DECIMAL NOT NULL
+) ENGINE = InnoDB;
+
 -- Chat
 CREATE TABLE room (
     id VARCHAR(255) PRIMARY KEY,

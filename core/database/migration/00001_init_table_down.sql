@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS room;
 
 -- Pemeriksaan
 DROP TABLE IF EXISTS pemeriksaan;
+DROP TABLE IF EXISTS pemeriksaan_threshold;
 
 -- Jadwal Penyuluhan
 DROP TABLE IF EXISTS jadwal_penyuluhan;
