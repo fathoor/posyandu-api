@@ -30,6 +30,9 @@ import (
 	remajaController "github.com/itsLeonB/posyandu-api/module/remaja/controller"
 	remajaRepository "github.com/itsLeonB/posyandu-api/module/remaja/repository"
 	remajaService "github.com/itsLeonB/posyandu-api/module/remaja/service"
+	controller2 "github.com/itsLeonB/posyandu-api/module/threshold/controller"
+	thresholdRepository "github.com/itsLeonB/posyandu-api/module/threshold/repository"
+	service2 "github.com/itsLeonB/posyandu-api/module/threshold/service"
 	userController "github.com/itsLeonB/posyandu-api/module/user/controller"
 	userRepository "github.com/itsLeonB/posyandu-api/module/user/repository"
 	userService "github.com/itsLeonB/posyandu-api/module/user/service"
@@ -46,6 +49,7 @@ func ProvideModule(app *fiber.App, db *gorm.DB) {
 	ProvideJadwalPosyandu(app, db)
 	ProvideJadwalPenyuluhan(app, db)
 	ProvidePemeriksaan(app, db)
+	ProvideThreshold(app, db)
 	ProvideFile(app)
 	ProvideHome(app, db)
 	ProvideChat(app, db)
@@ -130,6 +134,14 @@ func ProvidePemeriksaan(app *fiber.App, db *gorm.DB) {
 	userRepo := userRepository.ProvideUserRepository(db)
 	service := pemeriksaanService.ProvidePemeriksaanService(&pemeriksaanRepo, &posyanduRepo, &remajaRepo, &userRepo)
 	controller := pemeriksaanController.ProvidePemeriksaanController(&service)
+
+	controller.Route(app)
+}
+
+func ProvideThreshold(app *fiber.App, db *gorm.DB) {
+	repository := thresholdRepository.ProvideThresholdRepository(db)
+	service := service2.ProvideThresholdService(&repository)
+	controller := controller2.ProvideThresholdController(&service)
 
 	controller.Route(app)
 }
