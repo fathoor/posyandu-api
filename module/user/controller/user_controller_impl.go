@@ -18,10 +18,10 @@ func (controller *userControllerImpl) Route(app *fiber.App) {
 	auth.Post("/login", controller.Login)
 
 	user := app.Group("/v1/user", middleware.Authenticate("public"))
-	user.Post("/register", middleware.Authenticate("bidan"), controller.Register)
-	user.Get("/", middleware.Authenticate("bidan"), controller.GetAll)
+	user.Post("/register", middleware.Authenticate("kader"), controller.Register)
+	user.Get("/", middleware.Authenticate("kader"), controller.GetAll)
 	user.Get("/role/:role", middleware.AuthorizeRole(), controller.GetByRole)
-	user.Get("/:id", middleware.AuthorizeAdminOrBidan(), controller.GetByID)
+	user.Get("/:id", middleware.AuthorizeAdminBidanOrKader(), controller.GetByID)
 	user.Put("/:id", middleware.AuthorizeAdminOrBidan(), controller.Update)
 	user.Put("/:id/auth", middleware.AuthorizeUser(), controller.UpdateAuth)
 	user.Delete("/:id", middleware.Authenticate("bidan"), controller.Delete)
