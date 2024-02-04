@@ -1,12 +1,12 @@
 package service
 
 import (
-	"github.com/itsLeonB/posyandu-api/core/exception"
-	"github.com/itsLeonB/posyandu-api/module/bidan/entity"
-	"github.com/itsLeonB/posyandu-api/module/bidan/model"
-	bidanRepository "github.com/itsLeonB/posyandu-api/module/bidan/repository"
-	"github.com/itsLeonB/posyandu-api/module/bidan/validation"
-	userRepository "github.com/itsLeonB/posyandu-api/module/user/repository"
+	"github.com/fathoor/posyandu-api/core/exception"
+	"github.com/fathoor/posyandu-api/module/bidan/entity"
+	"github.com/fathoor/posyandu-api/module/bidan/model"
+	bidanRepository "github.com/fathoor/posyandu-api/module/bidan/repository"
+	"github.com/fathoor/posyandu-api/module/bidan/validation"
+	userRepository "github.com/fathoor/posyandu-api/module/user/repository"
 )
 
 type bidanServiceImpl struct {

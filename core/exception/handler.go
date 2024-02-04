@@ -1,8 +1,8 @@
 package exception
 
 import (
+	"github.com/fathoor/posyandu-api/core/model"
 	"github.com/gofiber/fiber/v2"
-	"github.com/itsLeonB/posyandu-api/core/model"
 )
 
 func Handler(ctx *fiber.Ctx, err error) error {

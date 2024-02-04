@@ -1,7 +1,7 @@
 package entity
 
 import (
-	"github.com/itsLeonB/posyandu-api/module/user/entity"
+	"github.com/fathoor/posyandu-api/module/user/entity"
 	"time"
 )
 

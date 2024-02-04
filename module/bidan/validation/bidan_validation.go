@@ -1,8 +1,8 @@
 package validation
 
 import (
-	"github.com/itsLeonB/posyandu-api/core/validation"
-	"github.com/itsLeonB/posyandu-api/module/bidan/model"
+	"github.com/fathoor/posyandu-api/core/validation"
+	"github.com/fathoor/posyandu-api/module/bidan/model"
 )
 
 func ValidateBidanCreateRequest(request *model.BidanCreateRequest) error {

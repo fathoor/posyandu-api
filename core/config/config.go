@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/itsLeonB/posyandu-api/core/exception"
+	"github.com/fathoor/posyandu-api/core/exception"
 	"os"
 	"strconv"
 )

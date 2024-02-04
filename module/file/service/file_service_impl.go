@@ -1,10 +1,10 @@
 package service
 
 import (
-	"github.com/itsLeonB/posyandu-api/core/exception"
-	"github.com/itsLeonB/posyandu-api/core/helper"
-	"github.com/itsLeonB/posyandu-api/module/file/model"
-	"github.com/itsLeonB/posyandu-api/module/file/validation"
+	"github.com/fathoor/posyandu-api/core/exception"
+	"github.com/fathoor/posyandu-api/core/helper"
+	"github.com/fathoor/posyandu-api/module/file/model"
+	"github.com/fathoor/posyandu-api/module/file/validation"
 	"path"
 	"strings"
 )

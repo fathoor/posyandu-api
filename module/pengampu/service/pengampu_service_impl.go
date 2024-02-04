@@ -1,14 +1,14 @@
 package service
 
 import (
-	"github.com/itsLeonB/posyandu-api/core/exception"
-	bidanRepository "github.com/itsLeonB/posyandu-api/module/bidan/repository"
-	"github.com/itsLeonB/posyandu-api/module/pengampu/entity"
-	"github.com/itsLeonB/posyandu-api/module/pengampu/model"
-	pengampuRepository "github.com/itsLeonB/posyandu-api/module/pengampu/repository"
-	"github.com/itsLeonB/posyandu-api/module/pengampu/validation"
-	posyanduRepository "github.com/itsLeonB/posyandu-api/module/posyandu/repository"
-	userRepository "github.com/itsLeonB/posyandu-api/module/user/repository"
+	"github.com/fathoor/posyandu-api/core/exception"
+	bidanRepository "github.com/fathoor/posyandu-api/module/bidan/repository"
+	"github.com/fathoor/posyandu-api/module/pengampu/entity"
+	"github.com/fathoor/posyandu-api/module/pengampu/model"
+	pengampuRepository "github.com/fathoor/posyandu-api/module/pengampu/repository"
+	"github.com/fathoor/posyandu-api/module/pengampu/validation"
+	posyanduRepository "github.com/fathoor/posyandu-api/module/posyandu/repository"
+	userRepository "github.com/fathoor/posyandu-api/module/user/repository"
 )
 
 type pengampuServiceImpl struct {

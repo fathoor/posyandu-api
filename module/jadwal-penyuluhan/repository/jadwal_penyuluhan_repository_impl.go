@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/itsLeonB/posyandu-api/module/jadwal-penyuluhan/entity"
+	"github.com/fathoor/posyandu-api/module/jadwal-penyuluhan/entity"
 	"gorm.io/gorm"
 )
 

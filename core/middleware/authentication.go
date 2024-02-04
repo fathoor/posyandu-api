@@ -1,11 +1,11 @@
 package middleware
 
 import (
+	"github.com/fathoor/posyandu-api/core/config"
+	"github.com/fathoor/posyandu-api/core/exception"
 	jwtware "github.com/gofiber/contrib/jwt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/itsLeonB/posyandu-api/core/config"
-	"github.com/itsLeonB/posyandu-api/core/exception"
 )
 
 func Authenticate(role string) func(*fiber.Ctx) error {

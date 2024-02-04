@@ -1,13 +1,13 @@
 package service
 
 import (
+	"github.com/fathoor/posyandu-api/core/exception"
+	"github.com/fathoor/posyandu-api/module/chat/entity"
+	"github.com/fathoor/posyandu-api/module/chat/model"
+	chatRepository "github.com/fathoor/posyandu-api/module/chat/repository"
+	"github.com/fathoor/posyandu-api/module/chat/validation"
+	userRepository "github.com/fathoor/posyandu-api/module/user/repository"
 	"github.com/google/uuid"
-	"github.com/itsLeonB/posyandu-api/core/exception"
-	"github.com/itsLeonB/posyandu-api/module/chat/entity"
-	"github.com/itsLeonB/posyandu-api/module/chat/model"
-	chatRepository "github.com/itsLeonB/posyandu-api/module/chat/repository"
-	"github.com/itsLeonB/posyandu-api/module/chat/validation"
-	userRepository "github.com/itsLeonB/posyandu-api/module/user/repository"
 )
 
 type chatServiceImpl struct {

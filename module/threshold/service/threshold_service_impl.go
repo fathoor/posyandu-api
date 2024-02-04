@@ -1,11 +1,11 @@
 package service
 
 import (
-	"github.com/itsLeonB/posyandu-api/core/exception"
-	"github.com/itsLeonB/posyandu-api/module/threshold/entity"
-	"github.com/itsLeonB/posyandu-api/module/threshold/model"
-	"github.com/itsLeonB/posyandu-api/module/threshold/repository"
-	"github.com/itsLeonB/posyandu-api/module/threshold/validation"
+	"github.com/fathoor/posyandu-api/core/exception"
+	"github.com/fathoor/posyandu-api/module/threshold/entity"
+	"github.com/fathoor/posyandu-api/module/threshold/model"
+	"github.com/fathoor/posyandu-api/module/threshold/repository"
+	"github.com/fathoor/posyandu-api/module/threshold/validation"
 )
 
 type thresholdServiceImpl struct {

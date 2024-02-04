@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/itsLeonB/posyandu-api/module/pengampu/entity"
+import "github.com/fathoor/posyandu-api/module/pengampu/entity"
 
 type PengampuRepository interface {
 	Insert(pengampu *entity.Pengampu) error

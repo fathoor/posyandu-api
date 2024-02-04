@@ -1,8 +1,8 @@
 package validation
 
 import (
-	"github.com/itsLeonB/posyandu-api/core/validation"
-	"github.com/itsLeonB/posyandu-api/module/threshold/model"
+	"github.com/fathoor/posyandu-api/core/validation"
+	"github.com/fathoor/posyandu-api/module/threshold/model"
 )
 
 func ValidateThresholdCreateRequest(request *model.ThresholdCreateRequest) error {

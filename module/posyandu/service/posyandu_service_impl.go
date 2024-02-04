@@ -1,11 +1,11 @@
 package service
 
 import (
-	"github.com/itsLeonB/posyandu-api/core/exception"
-	"github.com/itsLeonB/posyandu-api/module/posyandu/entity"
-	"github.com/itsLeonB/posyandu-api/module/posyandu/model"
-	"github.com/itsLeonB/posyandu-api/module/posyandu/repository"
-	"github.com/itsLeonB/posyandu-api/module/posyandu/validation"
+	"github.com/fathoor/posyandu-api/core/exception"
+	"github.com/fathoor/posyandu-api/module/posyandu/entity"
+	"github.com/fathoor/posyandu-api/module/posyandu/model"
+	"github.com/fathoor/posyandu-api/module/posyandu/repository"
+	"github.com/fathoor/posyandu-api/module/posyandu/validation"
 )
 
 type posyanduServiceImpl struct {

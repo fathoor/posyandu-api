@@ -1,8 +1,8 @@
 package validation
 
 import (
-	"github.com/itsLeonB/posyandu-api/core/validation"
-	"github.com/itsLeonB/posyandu-api/module/remaja/model"
+	"github.com/fathoor/posyandu-api/core/validation"
+	"github.com/fathoor/posyandu-api/module/remaja/model"
 )
 
 func ValidateRemajaCreateRequest(request *model.RemajaCreateRequest) error {

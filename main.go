@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/itsLeonB/posyandu-api/core/config"
-	"github.com/itsLeonB/posyandu-api/core/exception"
-	"github.com/itsLeonB/posyandu-api/core/provider"
+	"github.com/fathoor/posyandu-api/core/config"
+	"github.com/fathoor/posyandu-api/core/exception"
+	"github.com/fathoor/posyandu-api/core/provider"
 	_ "github.com/joho/godotenv/autoload"
 )
 

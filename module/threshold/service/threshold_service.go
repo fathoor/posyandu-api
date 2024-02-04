@@ -1,6 +1,6 @@
 package service
 
-import "github.com/itsLeonB/posyandu-api/module/threshold/model"
+import "github.com/fathoor/posyandu-api/module/threshold/model"
 
 type ThresholdService interface {
 	Create(request *model.ThresholdCreateRequest) (model.ThresholdResponse, error)

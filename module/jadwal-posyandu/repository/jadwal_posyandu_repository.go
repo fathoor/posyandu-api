@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/itsLeonB/posyandu-api/module/jadwal-posyandu/entity"
+import "github.com/fathoor/posyandu-api/module/jadwal-posyandu/entity"
 
 type JadwalPosyanduRepository interface {
 	Insert(jadwalPosyandu *entity.JadwalPosyandu) error

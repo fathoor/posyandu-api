@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/itsLeonB/posyandu-api/module/chat/entity"
+import "github.com/fathoor/posyandu-api/module/chat/entity"
 
 type ChatRepository interface {
 	Insert(chat *entity.Chat) error

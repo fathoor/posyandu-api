@@ -2,10 +2,10 @@ package validation
 
 import (
 	"fmt"
-	"github.com/itsLeonB/posyandu-api/core/exception"
-	"github.com/itsLeonB/posyandu-api/core/helper"
-	"github.com/itsLeonB/posyandu-api/core/validation"
-	"github.com/itsLeonB/posyandu-api/module/file/model"
+	"github.com/fathoor/posyandu-api/core/exception"
+	"github.com/fathoor/posyandu-api/core/helper"
+	"github.com/fathoor/posyandu-api/core/validation"
+	"github.com/fathoor/posyandu-api/module/file/model"
 	"path"
 )
 

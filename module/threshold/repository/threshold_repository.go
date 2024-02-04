@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/itsLeonB/posyandu-api/module/threshold/entity"
+import "github.com/fathoor/posyandu-api/module/threshold/entity"
 
 type ThresholdRepository interface {
 	Insert(threshold *entity.Threshold) error

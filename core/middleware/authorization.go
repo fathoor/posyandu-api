@@ -1,9 +1,9 @@
 package middleware
 
 import (
+	"github.com/fathoor/posyandu-api/core/exception"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/itsLeonB/posyandu-api/core/exception"
 )
 
 func AuthorizeUser() func(*fiber.Ctx) error {

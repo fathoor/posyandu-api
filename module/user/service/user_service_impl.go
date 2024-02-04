@@ -1,12 +1,12 @@
 package service
 
 import (
-	"github.com/itsLeonB/posyandu-api/core/exception"
-	"github.com/itsLeonB/posyandu-api/core/helper"
-	"github.com/itsLeonB/posyandu-api/module/user/entity"
-	"github.com/itsLeonB/posyandu-api/module/user/model"
-	"github.com/itsLeonB/posyandu-api/module/user/repository"
-	"github.com/itsLeonB/posyandu-api/module/user/validation"
+	"github.com/fathoor/posyandu-api/core/exception"
+	"github.com/fathoor/posyandu-api/core/helper"
+	"github.com/fathoor/posyandu-api/module/user/entity"
+	"github.com/fathoor/posyandu-api/module/user/model"
+	"github.com/fathoor/posyandu-api/module/user/repository"
+	"github.com/fathoor/posyandu-api/module/user/validation"
 	"time"
 )
 

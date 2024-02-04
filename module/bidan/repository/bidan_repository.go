@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/itsLeonB/posyandu-api/module/bidan/entity"
+import "github.com/fathoor/posyandu-api/module/bidan/entity"
 
 type BidanRepository interface {
 	Insert(bidan *entity.Bidan) error

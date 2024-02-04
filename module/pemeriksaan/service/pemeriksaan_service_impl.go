@@ -1,14 +1,14 @@
 package service
 
 import (
-	"github.com/itsLeonB/posyandu-api/core/exception"
-	"github.com/itsLeonB/posyandu-api/module/pemeriksaan/entity"
-	"github.com/itsLeonB/posyandu-api/module/pemeriksaan/model"
-	pemeriksaanRepository "github.com/itsLeonB/posyandu-api/module/pemeriksaan/repository"
-	"github.com/itsLeonB/posyandu-api/module/pemeriksaan/validation"
-	posyanduRepository "github.com/itsLeonB/posyandu-api/module/posyandu/repository"
-	remajaRepository "github.com/itsLeonB/posyandu-api/module/remaja/repository"
-	userRepository "github.com/itsLeonB/posyandu-api/module/user/repository"
+	"github.com/fathoor/posyandu-api/core/exception"
+	"github.com/fathoor/posyandu-api/module/pemeriksaan/entity"
+	"github.com/fathoor/posyandu-api/module/pemeriksaan/model"
+	pemeriksaanRepository "github.com/fathoor/posyandu-api/module/pemeriksaan/repository"
+	"github.com/fathoor/posyandu-api/module/pemeriksaan/validation"
+	posyanduRepository "github.com/fathoor/posyandu-api/module/posyandu/repository"
+	remajaRepository "github.com/fathoor/posyandu-api/module/remaja/repository"
+	userRepository "github.com/fathoor/posyandu-api/module/user/repository"
 	"time"
 )
 
