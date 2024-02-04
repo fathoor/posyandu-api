@@ -22,7 +22,7 @@ func (controller *userControllerImpl) Route(app *fiber.App) {
 	user.Get("/", middleware.Authenticate("kader"), controller.GetAll)
 	user.Get("/role/:role", middleware.AuthorizeRole(), controller.GetByRole)
 	user.Get("/:id", middleware.AuthorizeAdminBidanOrKader(), controller.GetByID)
-	user.Put("/:id", middleware.AuthorizeAdminOrBidan(), controller.Update)
+	user.Put("/:id", middleware.AuthorizeAdminBidanOrKader(), controller.Update)
 	user.Put("/:id/auth", middleware.AuthorizeUser(), controller.UpdateAuth)
 	user.Delete("/:id", middleware.Authenticate("bidan"), controller.Delete)
 }
