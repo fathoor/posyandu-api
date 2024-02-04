@@ -22,12 +22,33 @@ func Authenticate(role string) func(*fiber.Ctx) error {
 			claims := c.Locals("user").(*jwt.Token).Claims.(jwt.MapClaims)
 			user := claims["role"].(string)
 
-			if user == "admin" || user == role || role == "public" {
+			switch role {
+			case "public":
 				return c.Next()
-			} else {
-				panic(exception.ForbiddenError{
-					Message: "Restricted access!",
-				})
+			case "kader":
+				if user == "kader" || user == "bidan" || user == "admin" {
+					return c.Next()
+				} else {
+					panic(exception.ForbiddenError{
+						Message: "Restricted access!",
+					})
+				}
+			case "bidan":
+				if user == "bidan" || user == "admin" {
+					return c.Next()
+				} else {
+					panic(exception.ForbiddenError{
+						Message: "Restricted access!",
+					})
+				}
+			default:
+				if user == role || user == "admin" {
+					return c.Next()
+				} else {
+					panic(exception.ForbiddenError{
+						Message: "Restricted access!",
+					})
+				}
 			}
 		},
 
