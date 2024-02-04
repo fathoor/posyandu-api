@@ -1,6 +1,6 @@
 package service
 
-import "github.com/itsLeonB/posyandu-api/module/home/model"
+import "github.com/fathoor/posyandu-api/module/home/model"
 
 type HomeService interface {
 	GetBidan(id int) (model.BidanHomeResponse, error)

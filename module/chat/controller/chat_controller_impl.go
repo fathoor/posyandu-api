@@ -1,13 +1,13 @@
 package controller
 
 import (
+	"github.com/fathoor/posyandu-api/core/exception"
+	"github.com/fathoor/posyandu-api/core/middleware"
+	web "github.com/fathoor/posyandu-api/core/model"
+	"github.com/fathoor/posyandu-api/module/chat/model"
+	"github.com/fathoor/posyandu-api/module/chat/service"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/itsLeonB/posyandu-api/core/exception"
-	"github.com/itsLeonB/posyandu-api/core/middleware"
-	web "github.com/itsLeonB/posyandu-api/core/model"
-	"github.com/itsLeonB/posyandu-api/module/chat/model"
-	"github.com/itsLeonB/posyandu-api/module/chat/service"
 )
 
 type chatControllerImpl struct {

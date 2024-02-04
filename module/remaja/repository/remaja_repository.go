@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/itsLeonB/posyandu-api/module/remaja/entity"
+import "github.com/fathoor/posyandu-api/module/remaja/entity"
 
 type RemajaRepository interface {
 	Insert(remaja *entity.Remaja) error

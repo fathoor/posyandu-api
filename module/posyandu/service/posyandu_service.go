@@ -1,6 +1,6 @@
 package service
 
-import "github.com/itsLeonB/posyandu-api/module/posyandu/model"
+import "github.com/fathoor/posyandu-api/module/posyandu/model"
 
 type PosyanduService interface {
 	Create(request *model.PosyanduCreateRequest) (model.PosyanduResponse, error)

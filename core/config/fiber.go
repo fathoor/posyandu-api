@@ -1,8 +1,8 @@
 package config
 
 import (
+	"github.com/fathoor/posyandu-api/core/exception"
 	"github.com/gofiber/fiber/v2"
-	"github.com/itsLeonB/posyandu-api/core/exception"
 )
 
 func ProvideFiber(cfg Config) *fiber.Config {

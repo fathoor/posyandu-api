@@ -1,8 +1,8 @@
 package entity
 
 import (
-	bidanEntity "github.com/itsLeonB/posyandu-api/module/bidan/entity"
-	posyanduEntity "github.com/itsLeonB/posyandu-api/module/posyandu/entity"
+	bidanEntity "github.com/fathoor/posyandu-api/module/bidan/entity"
+	posyanduEntity "github.com/fathoor/posyandu-api/module/posyandu/entity"
 	"time"
 )
 

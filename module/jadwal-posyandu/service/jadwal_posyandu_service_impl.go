@@ -1,12 +1,12 @@
 package service
 
 import (
-	"github.com/itsLeonB/posyandu-api/core/exception"
-	"github.com/itsLeonB/posyandu-api/module/jadwal-posyandu/entity"
-	"github.com/itsLeonB/posyandu-api/module/jadwal-posyandu/model"
-	jadwalPosyanduRepository "github.com/itsLeonB/posyandu-api/module/jadwal-posyandu/repository"
-	"github.com/itsLeonB/posyandu-api/module/jadwal-posyandu/validation"
-	posyanduRepository "github.com/itsLeonB/posyandu-api/module/posyandu/repository"
+	"github.com/fathoor/posyandu-api/core/exception"
+	"github.com/fathoor/posyandu-api/module/jadwal-posyandu/entity"
+	"github.com/fathoor/posyandu-api/module/jadwal-posyandu/model"
+	jadwalPosyanduRepository "github.com/fathoor/posyandu-api/module/jadwal-posyandu/repository"
+	"github.com/fathoor/posyandu-api/module/jadwal-posyandu/validation"
+	posyanduRepository "github.com/fathoor/posyandu-api/module/posyandu/repository"
 	"time"
 )
 

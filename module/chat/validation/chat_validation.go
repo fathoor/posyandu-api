@@ -1,8 +1,8 @@
 package validation
 
 import (
-	"github.com/itsLeonB/posyandu-api/core/validation"
-	"github.com/itsLeonB/posyandu-api/module/chat/model"
+	"github.com/fathoor/posyandu-api/core/validation"
+	"github.com/fathoor/posyandu-api/module/chat/model"
 )
 
 func ValidateChatCreateRequest(request *model.ChatCreateRequest) error {

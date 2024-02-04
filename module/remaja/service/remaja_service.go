@@ -1,6 +1,6 @@
 package service
 
-import "github.com/itsLeonB/posyandu-api/module/remaja/model"
+import "github.com/fathoor/posyandu-api/module/remaja/model"
 
 type RemajaService interface {
 	Create(request *model.RemajaCreateRequest) (model.RemajaResponse, error)

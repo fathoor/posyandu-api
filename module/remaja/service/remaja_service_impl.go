@@ -1,15 +1,15 @@
 package service
 
 import (
-	"github.com/itsLeonB/posyandu-api/core/exception"
-	pemeriksaanEntity "github.com/itsLeonB/posyandu-api/module/pemeriksaan/entity"
-	pemeriksaanRepository "github.com/itsLeonB/posyandu-api/module/pemeriksaan/repository"
-	posyanduRepository "github.com/itsLeonB/posyandu-api/module/posyandu/repository"
-	"github.com/itsLeonB/posyandu-api/module/remaja/entity"
-	"github.com/itsLeonB/posyandu-api/module/remaja/model"
-	remajaRepository "github.com/itsLeonB/posyandu-api/module/remaja/repository"
-	"github.com/itsLeonB/posyandu-api/module/remaja/validation"
-	userRepository "github.com/itsLeonB/posyandu-api/module/user/repository"
+	"github.com/fathoor/posyandu-api/core/exception"
+	pemeriksaanEntity "github.com/fathoor/posyandu-api/module/pemeriksaan/entity"
+	pemeriksaanRepository "github.com/fathoor/posyandu-api/module/pemeriksaan/repository"
+	posyanduRepository "github.com/fathoor/posyandu-api/module/posyandu/repository"
+	"github.com/fathoor/posyandu-api/module/remaja/entity"
+	"github.com/fathoor/posyandu-api/module/remaja/model"
+	remajaRepository "github.com/fathoor/posyandu-api/module/remaja/repository"
+	"github.com/fathoor/posyandu-api/module/remaja/validation"
+	userRepository "github.com/fathoor/posyandu-api/module/user/repository"
 )
 
 type remajaServiceImpl struct {

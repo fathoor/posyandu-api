@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"github.com/itsLeonB/posyandu-api/core/exception"
-	"github.com/itsLeonB/posyandu-api/module/pengampu/entity"
+	"github.com/fathoor/posyandu-api/core/exception"
+	"github.com/fathoor/posyandu-api/module/pengampu/entity"
 	"gorm.io/gorm"
 )
 

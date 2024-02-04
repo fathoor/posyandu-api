@@ -1,16 +1,16 @@
 package service
 
 import (
-	"github.com/itsLeonB/posyandu-api/core/exception"
-	bidanRepository "github.com/itsLeonB/posyandu-api/module/bidan/repository"
-	"github.com/itsLeonB/posyandu-api/module/home/model"
-	jadwalPenyuluhanRepository "github.com/itsLeonB/posyandu-api/module/jadwal-penyuluhan/repository"
-	jadwalPosyanduRepository "github.com/itsLeonB/posyandu-api/module/jadwal-posyandu/repository"
-	pemeriksaanRepository "github.com/itsLeonB/posyandu-api/module/pemeriksaan/repository"
-	pengampuRepository "github.com/itsLeonB/posyandu-api/module/pengampu/repository"
-	posyanduRepository "github.com/itsLeonB/posyandu-api/module/posyandu/repository"
-	remajaRepository "github.com/itsLeonB/posyandu-api/module/remaja/repository"
-	userRepository "github.com/itsLeonB/posyandu-api/module/user/repository"
+	"github.com/fathoor/posyandu-api/core/exception"
+	bidanRepository "github.com/fathoor/posyandu-api/module/bidan/repository"
+	"github.com/fathoor/posyandu-api/module/home/model"
+	jadwalPenyuluhanRepository "github.com/fathoor/posyandu-api/module/jadwal-penyuluhan/repository"
+	jadwalPosyanduRepository "github.com/fathoor/posyandu-api/module/jadwal-posyandu/repository"
+	pemeriksaanRepository "github.com/fathoor/posyandu-api/module/pemeriksaan/repository"
+	pengampuRepository "github.com/fathoor/posyandu-api/module/pengampu/repository"
+	posyanduRepository "github.com/fathoor/posyandu-api/module/posyandu/repository"
+	remajaRepository "github.com/fathoor/posyandu-api/module/remaja/repository"
+	userRepository "github.com/fathoor/posyandu-api/module/user/repository"
 	"time"
 )
 

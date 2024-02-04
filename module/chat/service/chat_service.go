@@ -1,6 +1,6 @@
 package service
 
-import "github.com/itsLeonB/posyandu-api/module/chat/model"
+import "github.com/fathoor/posyandu-api/module/chat/model"
 
 type ChatService interface {
 	Create(id int, request *model.ChatCreateRequest) (model.ChatResponse, error)

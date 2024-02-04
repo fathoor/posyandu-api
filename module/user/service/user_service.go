@@ -1,6 +1,6 @@
 package service
 
-import "github.com/itsLeonB/posyandu-api/module/user/model"
+import "github.com/fathoor/posyandu-api/module/user/model"
 
 type UserService interface {
 	Login(request *model.LoginRequest) (model.LoginResponse, error)

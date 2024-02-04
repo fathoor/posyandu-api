@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/itsLeonB/posyandu-api/module/threshold/entity"
+	"github.com/fathoor/posyandu-api/module/threshold/entity"
 	"gorm.io/gorm"
 )
 

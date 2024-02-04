@@ -1,8 +1,8 @@
 package validation
 
 import (
+	"github.com/fathoor/posyandu-api/module/user/model"
 	"github.com/go-playground/validator/v10"
-	"github.com/itsLeonB/posyandu-api/module/user/model"
 )
 
 func ValidateLoginRequest(request *model.LoginRequest) error {

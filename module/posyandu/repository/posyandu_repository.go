@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/itsLeonB/posyandu-api/module/posyandu/entity"
+import "github.com/fathoor/posyandu-api/module/posyandu/entity"
 
 type PosyanduRepository interface {
 	Insert(posyandu *entity.Posyandu) error

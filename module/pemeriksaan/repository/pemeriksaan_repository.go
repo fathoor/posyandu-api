@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/itsLeonB/posyandu-api/module/pemeriksaan/entity"
+import "github.com/fathoor/posyandu-api/module/pemeriksaan/entity"
 
 type PemeriksaanRepository interface {
 	Insert(pemeriksaan *entity.Pemeriksaan) error

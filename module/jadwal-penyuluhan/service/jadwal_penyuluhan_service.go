@@ -1,6 +1,6 @@
 package service
 
-import "github.com/itsLeonB/posyandu-api/module/jadwal-penyuluhan/model"
+import "github.com/fathoor/posyandu-api/module/jadwal-penyuluhan/model"
 
 type JadwalPenyuluhanService interface {
 	Create(request *model.JadwalPenyuluhanCreateRequest) (model.JadwalPenyuluhanResponse, error)

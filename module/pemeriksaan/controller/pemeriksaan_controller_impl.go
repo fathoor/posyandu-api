@@ -1,12 +1,12 @@
 package controller
 
 import (
+	"github.com/fathoor/posyandu-api/core/exception"
+	"github.com/fathoor/posyandu-api/core/middleware"
+	web "github.com/fathoor/posyandu-api/core/model"
+	"github.com/fathoor/posyandu-api/module/pemeriksaan/model"
+	"github.com/fathoor/posyandu-api/module/pemeriksaan/service"
 	"github.com/gofiber/fiber/v2"
-	"github.com/itsLeonB/posyandu-api/core/exception"
-	"github.com/itsLeonB/posyandu-api/core/middleware"
-	web "github.com/itsLeonB/posyandu-api/core/model"
-	"github.com/itsLeonB/posyandu-api/module/pemeriksaan/model"
-	"github.com/itsLeonB/posyandu-api/module/pemeriksaan/service"
 )
 
 type pemeriksaanControllerImpl struct {

@@ -1,6 +1,6 @@
 package service
 
-import "github.com/itsLeonB/posyandu-api/module/pemeriksaan/model"
+import "github.com/fathoor/posyandu-api/module/pemeriksaan/model"
 
 type PemeriksaanService interface {
 	Create(request *model.PemeriksaanCreateRequest) (model.PemeriksaanResponse, error)

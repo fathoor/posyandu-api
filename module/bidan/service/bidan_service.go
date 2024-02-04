@@ -1,6 +1,6 @@
 package service
 
-import "github.com/itsLeonB/posyandu-api/module/bidan/model"
+import "github.com/fathoor/posyandu-api/module/bidan/model"
 
 type BidanService interface {
 	Create(request *model.BidanCreateRequest) (model.BidanResponse, error)
