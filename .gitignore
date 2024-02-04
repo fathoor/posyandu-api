@@ -3,7 +3,6 @@
 
 # Storage image files
 storage/image/*
-!storage/image/.gitkeep
 
 # Keep empty directories
 !.gitkeep
@@ -13,8 +12,3 @@ storage/image/*
 
 # Seed
 core/database/seed/*
-!core/database/seed/.gitkeep
-
-# Static
-public/*
-!public/.gitkeep
