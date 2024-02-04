@@ -17,7 +17,7 @@ func (controller *pemeriksaanControllerImpl) Route(app *fiber.App) {
 	pemeriksaan := app.Group("/v1/pemeriksaan", middleware.Authenticate("public"))
 	pemeriksaan.Post("/", middleware.Authenticate("bidan"), controller.Create)
 	pemeriksaan.Get("/", middleware.Authenticate("bidan"), controller.GetAll)
-	pemeriksaan.Get("/remaja/:id", middleware.AuthorizeAdminOrBidan(), controller.GetByRemajaUserID)
+	pemeriksaan.Get("/remaja/:id", middleware.AuthorizeAdminBidanOrKader(), controller.GetByRemajaUserID)
 	pemeriksaan.Get("/:id", controller.GetByID)
 	pemeriksaan.Put("/:id", middleware.Authenticate("bidan"), controller.Update)
 	pemeriksaan.Delete("/:id", middleware.Authenticate("bidan"), controller.Delete)
