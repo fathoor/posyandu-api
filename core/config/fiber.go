@@ -5,10 +5,10 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func ProvideFiber(cfg Config) *fiber.Config {
+func ProvideFiber() *fiber.Config {
 	return &fiber.Config{
-		CaseSensitive: cfg.GetBool("FIBER_CASE_SENSITIVE"),
-		StrictRouting: cfg.GetBool("FIBER_STRICT_ROUTING"),
+		CaseSensitive: true,
+		StrictRouting: false,
 		ErrorHandler:  exception.Handler,
 	}
 }

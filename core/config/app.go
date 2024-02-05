@@ -6,8 +6,8 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/recover"
 )
 
-func ProvideApp(cfg Config) *fiber.App {
-	app := fiber.New(*ProvideFiber(cfg))
+func ProvideApp() *fiber.App {
+	app := fiber.New(*ProvideFiber())
 
 	app.Use(recover.New())
 	app.Use(cors.New())
