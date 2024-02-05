@@ -64,18 +64,17 @@ pipeline {
             }
         }
     }
-}
-
-post {
-    always {
-        echo 'Cleaning up..'
-        sh 'rm .env'
-        echo 'Cleaned up.'
-    }
-    success {
-        echo 'App is deployed successfully.'
-    }
-    failure {
-        echo 'App deployment failed.'
+    post {
+        success {
+            echo 'App is deployed successfully.'
+        }
+        failure {
+            echo 'App deployment failed.'
+        }
+        cleanup {
+            echo 'Cleaning up..'
+            deleteDir()
+            echo 'Cleaned up.'
+        }
     }
 }
