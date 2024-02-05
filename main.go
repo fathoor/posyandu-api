@@ -10,7 +10,7 @@ import (
 func main() {
 	var (
 		cfg = config.ProvideConfig()
-		app = config.ProvideApp(cfg)
+		app = config.ProvideApp()
 		db  = config.ProvideDB(cfg)
 	)
 
