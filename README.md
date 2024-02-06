@@ -1,5 +1,11 @@
 # Posyandu API
-Dockerized RESTful API for Healthcare Information System
+
+[![Docker Hub](https://img.shields.io/badge/Docker%20Hub-blue.svg?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/mfathoor/posyandu-api)
+[![Release](https://img.shields.io/github/v/release/fathoor/posyandu-api?style=for-the-badge&color=white)](https://github.com/fathoor/posyandu-api/releases)
+[![Docker Pulls](https://img.shields.io/docker/pulls/mfathoor/posyandu-api?style=for-the-badge&color=white)](https://hub.docker.com/r/mfathoor/posyandu-api)
+[![Image Size](https://img.shields.io/docker/image-size/mfathoor/posyandu-api?style=for-the-badge&color=white)](https://hub.docker.com/r/mfathoor/posyandu-api)
+
+Dockerized RESTful API for Healthcare Information System with automated CI/CD pipeline.
 
 ***
 
@@ -11,6 +17,8 @@ Dockerized RESTful API for Healthcare Information System
 [![MySQL](https://img.shields.io/badge/MySQL-white.svg?style=for-the-badge&logo=mysql&logoColor=black)](https://www.mysql.com/)
 [![Docker](https://img.shields.io/badge/Docker-white.svg?style=for-the-badge&logo=docker&logoColor=black)](https://www.docker.com/)
 [![Nginx](https://img.shields.io/badge/Nginx-white.svg?style=for-the-badge&logo=nginx&logoColor=black)](https://www.nginx.com/)
+[![Jenkins](https://img.shields.io/badge/Jenkins-white.svg?style=for-the-badge&logo=jenkins&logoColor=black)](https://www.jenkins.io/)
+[![Postman](https://img.shields.io/badge/Postman-white.svg?style=for-the-badge&logo=postman&logoColor=black)](https://www.postman.com/)
 
 ***
 
